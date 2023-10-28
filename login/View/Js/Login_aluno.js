@@ -1,16 +1,16 @@
 const divResposta = document.getElementById("divResposta");
 const btnLogin = document.getElementById("btnLogin");
-const txtEmail = document.getElementById("txtEmail");
+const txtMatricula = document.getElementById("txtMatricula");
 const txtSenha = document.getElementById("txtSenha");
 
 btnLogin.onclick = onclick_btnLogin;
 
 function onclick_btnLogin(){
 
-    const v_email = txtEmail.value;
+    const v_matricula = txtmatricula.value;
     const v_senha = txtSenha.value;
     const objJson = {
-        email:v_email,
+        email:v_matricula,
         senha:v_senha
     }
     fetch_post_verificarLogin(objJson);

@@ -1,4 +1,4 @@
-const _jwt = require('jsonwebtoken'); // npm install jsonwebtoken --save        https://www.npmjs.com/package/jsonwebtoken
+const _jwt = require('jsonwebtoken'); 
 module.exports = class JwtToken {
   Jsonwebtoken = _jwt;
   JWT_KEY = "09ac8db5a84d6cfd979521700cb600fa";
