@@ -5,9 +5,6 @@ module.exports = class Funcionario {
     constructor(banco) {
         this.banco = banco
         this.matricula = null
-        this.nome = null
-        this.email = null
-        this.wpp = null
         this.senha = null
         
     }
@@ -50,24 +47,7 @@ module.exports = class Funcionario {
     getMatricula(){
         return this.matricula
     }
-    setNome(name) {
-        this.nome = name;
-    }
-    getNome() {
-        return this.nome;
-    }
-    setEmail(email) {
-        this.email = email;
-    }
-    getEmail() {
-        return this.email;
-    }
-    setWpp(wpp){
-        this.wpp = wpp
-    }
-    getWpp(){
-        return this.Wpp
-    }
+    
     setSenha(senha) {
         this.senha = senha;
     }
