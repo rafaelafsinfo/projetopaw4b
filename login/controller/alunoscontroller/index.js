@@ -1,17 +1,17 @@
 const JwtToken = require('../../Model/JwtToken')
-const Alunod = require('../../Model/Alunos')
+const Aluno = require('../../Model/Alunos')
 
 const alunoscontroller = {
-    async createAlunos(request,response){
+    async loginAluno(request,response){
         console.log("rota: POST: /login");
         const matricula = request.body.matricula;
         const senha = request.body.senha;
 
-        const funcionario = new Funcionario(banco);
-        funcionario.setmatricula(matricula);
-        funcionario.setSenha(senha);
+        const Aluno = new Aluno(banco);
+        Aluno.setmatricula(matricula);
+        Aluno.setSenha(senha);
 
-        funcionario.login().then((respostaLogin) => {
+        Aluno.login().then((respostaLogin) => {
         if (respostaLogin.status == true) { 
             let usuario = {
             matricula: respostaLogin.matricula,
@@ -24,7 +24,7 @@ const alunoscontroller = {
             status: true,
             msg: "Login efetuado com sucesso",
             token: novoToken,
-            funcionario: usuario
+            Aluno: usuario
             }
 
             response.status(201).send(resposta);
