@@ -41,7 +41,7 @@ function fetch_post_verificarLogin(objJson){
             localStorage.setItem("token",objetoJson.token);
 			localStorage.setItem("jsonFuncionario",stringJsonFuncionario);
 
-            window.location="PainelAdm.html"
+            window.location="../../alunos/src/Public/Index.html"
         }else{
             divResposta.appendChild(document.createTextNode(objetoJson.msg))
         }

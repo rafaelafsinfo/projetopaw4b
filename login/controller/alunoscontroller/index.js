@@ -4,17 +4,17 @@ const Alunod = require('../../Model/Alunos')
 const alunoscontroller = {
     async createAlunos(request,response){
         console.log("rota: POST: /login");
-        const email = request.body.email;
+        const matricula = request.body.matricula;
         const senha = request.body.senha;
 
         const funcionario = new Funcionario(banco);
-        funcionario.setEmail(email);
+        funcionario.setmatricula(matricula);
         funcionario.setSenha(senha);
 
         funcionario.login().then((respostaLogin) => {
         if (respostaLogin.status == true) { 
             let usuario = {
-            email: respostaLogin.email,
+            matricula: respostaLogin.matricula,
             nome: respostaLogin.nome
             }
             const jwt = new JwtToken();
