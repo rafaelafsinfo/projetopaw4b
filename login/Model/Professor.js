@@ -13,7 +13,7 @@ module.exports = class professor {
             const email = this.getemail();
             const senha = md5(this.getSenha());
             let parametros = [email, senha];
-            let sql = "SELECT COUNT(*) AS qtd ,nome,matricula FROM Aluno WHERE matricula =? AND senha =?";
+            let sql = "SELECT COUNT(*) AS qtd ,nome,email FROM Aluno WHERE email =? AND senha =?";
 
             const result = this.banco.query(sql, parametros, (error, result) => {
                 if (error) {
