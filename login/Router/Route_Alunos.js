@@ -7,11 +7,11 @@ module.exports = function(app,banco){
             const matricula = request.body.matricula
             const senha = request.body.senha
     
-            const Alunos = new Alunos(banco)
-            Alunos.setmatricula(matricula)
-            Alunos.setSenha(senha)
+            const Aluno = new Alunos(banco)
+            Aluno.setmatricula(matricula)
+            Aluno.setSenha(senha)
     
-            Alunos.login().then((respostaLogin) => {
+            Aluno.login().then((respostaLogin) => {
             if (respostaLogin.status == true) { 
                 let usuario = {
                 matricula: respostaLogin.matricula,
@@ -24,7 +24,7 @@ module.exports = function(app,banco){
                 status: true,
                 msg: "Login efetuado com sucesso",
                 token: novoToken,
-                Alunos: usuario
+                Aluno: usuario
                 }
     
                 response.status(201).send(resposta)
