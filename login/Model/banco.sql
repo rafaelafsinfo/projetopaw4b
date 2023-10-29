@@ -11,7 +11,7 @@ USE `colegiosUnivap` ;
 -- -----------------------------------------------------
 -- Table `colegiosUnivap`.`Aluno`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `colegiosUnivap`.`Aluno` (
+CREATE TABLE IF NOT EXISTS `colegiosUnivap`.`aluno` (
   `matricula` INT primary key NOT NULL,
   `nome` VARCHAR(128) NULL,
   `email` VARCHAR(45) NULL,

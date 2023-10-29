@@ -1,19 +1,19 @@
-var md5 = require('md5'); 
+var md5 = require('md5'); //npm install md5 --save  //https://www.npmjs.com/package/md5
 
-module.exports = class Aluno {
+module.exports = class professor {
 
     constructor(banco) {
         this.banco = banco
-        this.matricula = null
+        this.email = null
         this.senha = null
         
     }
     async login() {
         const operacaoAssincrona = new Promise((resolve, reject) => {
-            const matricula = this.getMatricula();
+            const email = this.getemail();
             const senha = md5(this.getSenha());
-            let parametros = [matricula, senha];
-            let sql = "SELECT COUNT(*) AS qtd ,nome,matricula FROM aluno WHERE matricula =? AND senha =?";
+            let parametros = [email, senha];
+            let sql = "SELECT COUNT(*) AS qtd ,nome,matricula FROM Aluno WHERE matricula =? AND senha =?";
 
             const result = this.banco.query(sql, parametros, (error, result) => {
                 if (error) {
@@ -24,7 +24,7 @@ module.exports = class Aluno {
                         const resposta = {
                             status: true,
                             nome: result[0].nome,
-                            matricula: result[0].matricula
+                            email: result[0].matricula
                         }
                         resolve(resposta);
                     } else {
@@ -41,11 +41,11 @@ module.exports = class Aluno {
     }
 
 
-    setMatricula(matricula){
-        this.matricula = matricula
+    setEmail(email){
+        this.email = email
     }
-    getMatricula(){
-        return this.matricula
+    getEmail(){
+        return this.email
     }
     
     setSenha(senha) {

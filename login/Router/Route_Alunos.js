@@ -1,54 +1,54 @@
-const { Router, request, response } = require('express')
+module.exports = function(app,banco){
 
-const routes = Router()
+    const JwtToken = require('../Model/JwtToken')
+    const Alunos = require("../Model/Alunos")
+    app.post('/loginaluno',(request,response) =>{
+        console.log("rota: POST: /login")
+            const matricula = request.body.matricula
+            const senha = request.body.senha
+    
+            const Alunos = new Alunos(banco)
+            Alunos.setmatricula(matricula)
+            Alunos.setSenha(senha)
+    
+            Alunos.login().then((respostaLogin) => {
+            if (respostaLogin.status == true) { 
+                let usuario = {
+                matricula: respostaLogin.matricula,
+                nome: respostaLogin.nome
+                }
+                const jwt = new JwtToken()
+                const novoToken = jwt.gerarToken(usuario)
 
-routes.post('/loginaluno',(request,response) =>{
-    console.log("rota: POST: /login");
-        const matricula = request.body.matricula;
-        const senha = request.body.senha;
-
-        const Aluno = new Aluno(banco);
-        Aluno.setmatricula(matricula);
-        Aluno.setSenha(senha);
-
-        Aluno.login().then((respostaLogin) => {
-        if (respostaLogin.status == true) { 
-            let usuario = {
-            matricula: respostaLogin.matricula,
-            nome: respostaLogin.nome
+                const resposta = {
+                status: true,
+                msg: "Login efetuado com sucesso",
+                token: novoToken,
+                Alunos: usuario
+                }
+    
+                response.status(201).send(resposta)
+            } else {
+                const resposta = {
+                status: false,
+                msg: "Usuário não logado",
+                codigo: 401,
+                }
+                response.send(resposta, 404)
             }
-            const jwt = new JwtToken();
-            const novoToken = jwt.gerarToken(usuario);
-
+    
+            }).catch((erro) => {
             const resposta = {
-            status: true,
-            msg: "Login efetuado com sucesso",
-            token: novoToken,
-            Aluno: usuario
+                status: false,
+                msg: 'erro ao executar',
+                codigo: '005',
+                dados: erro,
             }
+    
+    
+    
+            response.status(201).send(erro);
+            });
+    })
 
-            response.status(201).send(resposta);
-        } else {
-            const resposta = {
-            status: false,
-            msg: "Usuário não logado",
-            codigo: 401,
-            }
-            response.send(resposta, 404);
-        }
-
-        }).catch((erro) => {
-        const resposta = {
-            status: false,
-            msg: 'erro ao executar',
-            codigo: '005',
-            dados: erro,
-        }
-
-
-
-        response.status(201).send(erro);
-        });
-})
-
-module.exports = routes
+}
