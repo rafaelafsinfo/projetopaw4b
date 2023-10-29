@@ -3,7 +3,7 @@ var md5 = require('md5');
 module.exports = class Aluno {
 
     constructor(banco) {
-        this.banco = banco
+        this._banco = banco
         this.matricula = null
         this.senha = null
         
@@ -12,19 +12,22 @@ module.exports = class Aluno {
         const operacaoAssincrona = new Promise((resolve, reject) => {
             const matricula = this.getMatricula();
             const senha = md5(this.getSenha());
-            let parametros = [matricula, senha];
-            let sql = "SELECT COUNT(*) AS qtd ,nome,matricula FROM aluno WHERE matricula =? AND senha =?";
+            const parametros = [matricula, senha];
+            const sql = "SELECT COUNT(*) AS qtd ,nome,matricula FROM aluno WHERE matricula =? AND senha =?";
 
-            const result = this.banco.query(sql, parametros, (error, result) => {
+            this._banco.query(sql, parametros, (error, result) => {
+
                 if (error) {
+                    console.log(error)
                     reject(error);
                 } else {
-
-                    if (result[0].qtd == 1) {
+                    console.log(result)
+                    if (result[0].qtd > 0) {
                         const resposta = {
                             status: true,
+                            matricula: result[0].matricula,
                             nome: result[0].nome,
-                            matricula: result[0].matricula
+                            email: result[0].email
                         }
                         resolve(resposta);
                     } else {
