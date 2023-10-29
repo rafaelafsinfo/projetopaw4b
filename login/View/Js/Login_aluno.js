@@ -1,13 +1,13 @@
 const divResposta = document.getElementById("divResposta");
 const btnLogin = document.getElementById("btnLogin");
-const txtMatricula = document.getElementById("txtMatricula");
+const nrbMatricula = document.getElementById("nrbMatricula");
 const txtSenha = document.getElementById("txtSenha");
 
 btnLogin.onclick = onclick_btnLogin;
 
 function onclick_btnLogin(){
 
-    const v_matricula = txtmatricula.value;
+    const v_matricula = nbrmatricula.value;
     const v_senha = txtSenha.value;
     const objJson = {
         email:v_matricula,
@@ -19,7 +19,7 @@ function onclick_btnLogin(){
 function fetch_post_verificarLogin(objJson){
     //console.log(objJson)
     const stringJson = JSON.stringify(objJson);
-    const uri = "/login/";
+    const uri = "/login/aluno";
     fetch(uri, {
         method: "post",
         body: stringJson,
@@ -41,7 +41,7 @@ function fetch_post_verificarLogin(objJson){
             localStorage.setItem("token",objetoJson.token);
 			localStorage.setItem("jsonFuncionario",stringJsonFuncionario);
 
-            window.location="../../alunos/src/Public/Index.html"
+            window.location="localhost:3001/aluno"
         }else{
             divResposta.appendChild(document.createTextNode(objetoJson.msg))
         }

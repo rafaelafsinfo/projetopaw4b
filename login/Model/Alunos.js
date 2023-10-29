@@ -1,19 +1,20 @@
-var md5 = require('md5'); 
+//var md5 = require('md5'); 
 
 module.exports = class Alunos {
 
     constructor(banco) {
         this._banco = banco
-        this.matricula = null
-        this.senha = null
+        this._matricula = null
+        this._senha = null
         
     }
     async login() {
         const operacaoAssincrona = new Promise((resolve, reject) => {
             const matricula = this.getMatricula();
-            const senha = md5(this.getSenha());
+            const senha = this.getSenha() //md5(this.getSenha());
+            console.log(matricula,senha)
             const parametros = [matricula, senha];
-            const sql = `SELECT COUNT(*) AS qtd ,nome,matricula FROM aluno WHERE matricula =? AND senha =?;`;
+            const sql = `SELECT COUNT(*) AS qtd ,nome,matricula FROM aluno WHERE matricula =? AND senha =?`;
 
             this._banco.query(sql, parametros, (error, result) => {
 
@@ -45,17 +46,17 @@ module.exports = class Alunos {
 
 
     setMatricula(matricula){
-        this.matricula = matricula
+        this._matricula = matricula
     }
     getMatricula(){
-        return this.matricula
+        return this._matricula
     }
     
     setSenha(senha) {
-        this.senha = senha;
+        this._senha = senha;
     }
     getSenha() {
-        return this.senha;
+        return this._senha;
     }
 
 

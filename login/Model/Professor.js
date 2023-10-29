@@ -1,19 +1,21 @@
-var md5 = require('md5'); 
+//var md5 = require('md5'); 
 
 module.exports = class Professor {
 
     constructor(banco) {
         this._banco = banco
-        this.email = null
-        this.senha = null
+        this._registro = null
+        this._senha = null
         
     }
     async login() {
         const operacaoAssincrona = new Promise((resolve, reject) => {
-            const email = this.getEmail();
-            const senha = md5(this.getSenha());
-            const parametros = [email, senha];
-            const sql = `SELECT COUNT(*) AS qtd ,nome,email FROM Professor WHERE email =? AND senha =?;`;
+            const registro = this.getRegistro();
+            const senha = this.getSenha() //md5(this.getSenha());
+            const parametros = [registro, senha];
+            console.log(registro,senha)
+
+            const sql = `SELECT COUNT(*) AS qtd ,nome,registro FROM professor WHERE registro =? AND senha =?`;
 
             this._banco.query(sql, parametros, (error, result) => {
 
@@ -26,7 +28,6 @@ module.exports = class Professor {
                         const resposta = {
                             status: true,
                             registro: result[0].registro,
-                            email: result[0].email,
                             nome: result[0].nome,
                             email: result[0].email
                         }
@@ -45,18 +46,18 @@ module.exports = class Professor {
     }
 
 
-    setEmail(matricula){
-        this.matricula = matricula
+    setRegistro(Registro){
+        this._Registro = Registro
     }
-    getEmail(){
-        return this.matricula
+    getRegistro(){
+        return this._Registro
     }
     
     setSenha(senha) {
-        this.senha = senha;
+        this._senha = senha;
     }
     getSenha() {
-        return this.senha;
+        return this._senha;
     }
 
 
