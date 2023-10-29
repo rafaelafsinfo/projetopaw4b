@@ -1,6 +1,6 @@
 var md5 = require('md5'); 
 
-module.exports = class Aluno {
+module.exports = class Alunos {
 
     constructor(banco) {
         this._banco = banco
@@ -13,7 +13,7 @@ module.exports = class Aluno {
             const matricula = this.getMatricula();
             const senha = md5(this.getSenha());
             const parametros = [matricula, senha];
-            const sql = "SELECT COUNT(*) AS qtd ,nome,matricula FROM aluno WHERE matricula =? AND senha =?";
+            const sql = `SELECT COUNT(*) AS qtd ,nome,matricula FROM aluno WHERE matricula =? AND senha =?;`;
 
             this._banco.query(sql, parametros, (error, result) => {
 

@@ -23,9 +23,9 @@ module.exports = function(app,banco){
           
               }else{
 
-                  const Aluno = new Alunos(banco)
-                  Aluno.setMatricula(matricula)
-                  Aluno.setSenha(senha)
+                const Aluno = new Alunos(banco)
+                Aluno.setMatricula(matricula)
+                Aluno.setSenha(senha)
                   
     
                   Aluno.login().then((respostaLogin) => {

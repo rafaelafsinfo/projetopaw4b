@@ -1,30 +1,34 @@
-var md5 = require('md5'); //npm install md5 --save  //https://www.npmjs.com/package/md5
+var md5 = require('md5'); 
 
-module.exports = class professor {
+module.exports = class Professor {
 
     constructor(banco) {
-        this.banco = banco
+        this._banco = banco
         this.email = null
         this.senha = null
         
     }
     async login() {
         const operacaoAssincrona = new Promise((resolve, reject) => {
-            const email = this.getemail();
+            const email = this.getEmail();
             const senha = md5(this.getSenha());
-            let parametros = [email, senha];
-            let sql = "SELECT COUNT(*) AS qtd ,nome,email FROM Aluno WHERE email =? AND senha =?";
+            const parametros = [email, senha];
+            const sql = `SELECT COUNT(*) AS qtd ,nome,email FROM Professor WHERE email =? AND senha =?;`;
 
-            const result = this.banco.query(sql, parametros, (error, result) => {
+            this._banco.query(sql, parametros, (error, result) => {
+
                 if (error) {
+                    console.log(error)
                     reject(error);
                 } else {
-
-                    if (result[0].qtd == 1) {
+                    console.log(result)
+                    if (result[0].qtd > 0) {
                         const resposta = {
                             status: true,
+                            registro: result[0].registro,
+                            email: result[0].email,
                             nome: result[0].nome,
-                            email: result[0].matricula
+                            email: result[0].email
                         }
                         resolve(resposta);
                     } else {
@@ -41,11 +45,11 @@ module.exports = class professor {
     }
 
 
-    setEmail(email){
-        this.email = email
+    setEmail(matricula){
+        this.matricula = matricula
     }
     getEmail(){
-        return this.email
+        return this.matricula
     }
     
     setSenha(senha) {
