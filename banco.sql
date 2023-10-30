@@ -58,25 +58,18 @@ CREATE TABLE IF NOT EXISTS `colegiosUnivap`.`Disciplina` (
 -- -----------------------------------------------------
 -- Table `colegiosUnivap`.`Nota`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `colegiosUnivap`.`Nota` (
-  `idNota` INT primary key NOT NULL AUTO_INCREMENT,
-  `Disciplina_idDisciplina` INT NOT NULL,
-  `Aluno_matricula` INT NOT NULL,
-  `bimestre` INT NULL,
-  `nota` FLOAT NULL,
-  `ultimaAlteracao` DATETIME NULL,
-  `tipoNota` INT NULL COMMENT '1 - Projeto.\n2 - Prova.',
-  `fezLista` INT NULL,
-  CONSTRAINT `fk_Nota_Disciplina1`
-    FOREIGN KEY (`Disciplina_idDisciplina`)
-    REFERENCES `colegiosUnivap`.`Disciplina` (`idDisciplina`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Nota_Aluno1`
-    FOREIGN KEY (`Aluno_matricula`)
-    REFERENCES `colegiosUnivap`.`Aluno` (`matricula`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+CREATE TABLE IF NOT EXISTS `COLEGIOSUNIVAP`.`NOTA` (
+  `IDNOTA` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `DISCIPLINA_IDDISCIPLINA` INT NOT NULL,
+  `ALUNO_MATRICULA` INT NOT NULL,
+  `BIMESTRE` INT NULL,
+  `NOTA` FLOAT NULL,
+  `ULTIMAALTERACAO` DATETIME NULL,
+  `TIPONOTA` INT NULL COMMENT '1 - Projeto.\n2 - Prova.',
+  `FEZLISTA` INT NULL,
+  CONSTRAINT `FK_NOTA_DISCIPLINA1` FOREIGN KEY (`DISCIPLINA_IDDISCIPLINA`) REFERENCES `COLEGIOSUNIVAP`.`DISCIPLINA` (`IDDISCIPLINA`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_NOTA_ALUNO1` FOREIGN KEY (`ALUNO_MATRICULA`) REFERENCES `COLEGIOSUNIVAP`.`ALUNO` (`MATRICULA`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 
 -- -----------------------------------------------------
