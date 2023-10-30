@@ -14,7 +14,7 @@ module.exports = class Alunos {
             const senha = this.getSenha() //md5(this.getSenha());
             console.log(matricula,senha)
             const parametros = [matricula, senha];
-            const sql = `SELECT COUNT(*) AS qtd ,nome,matricula FROM aluno WHERE matricula =? AND senha =?`;
+            const sql = `SELECT COUNT(*) AS qtd, matricula,nome FROM aluno WHERE matricula = ? AND senha = ?`;
 
             this._banco.query(sql, parametros, (error, result) => {
 

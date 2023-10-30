@@ -74,7 +74,6 @@ module.exports = function(app,banco){
         console.log("rota: POST: /login/aluno")
             const Registro = request.body.registro
             const senha = request.body.senha
-            const jwt = new JwtToken();
             if (Registro == null || senha == "") {
                 //cria um objeto json de resposta.
                 const resposta = {

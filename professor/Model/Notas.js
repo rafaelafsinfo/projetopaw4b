@@ -8,7 +8,7 @@ module.exports = class Historico {
         */
         //this._banco recebe o pool de conexoes que vem sendo passado desde o arqquivo app.js
         this._banco = banco
-        this._Nota = null
+        this._idNota = null
         this._nota = null
         this._ultimaalteracao = null
         
@@ -205,7 +205,7 @@ module.exports = class Historico {
     // métodos get/set tradicionais
 
 
-    setidNota(nota) {
+    setidNota(Nota_idNota) {
         this._idNota = Nota_idNota
     }
     getidNota() {

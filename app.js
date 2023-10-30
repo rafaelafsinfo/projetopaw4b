@@ -18,8 +18,9 @@ app.use(express.json())
 app.use('/view', express.static(__dirname + '/view'))
 
 Route_login(app,banco)
+
 app.get("/loginaluno",function(request,response){
-  response.sendFile(__dirname+'/View/Login_Aluno.html')
+  response.sendFile(__dirname+'/login/View/Login_Aluno.html')
 })
 
 app.listen(3000, function () {
