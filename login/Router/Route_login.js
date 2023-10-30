@@ -14,7 +14,6 @@ module.exports = function(app,banco){
                   msg: 'matricula ou senha não podem ser vazios',
                   codigo: '001',
                   dados: "{}",
-                  token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
                 }
                 //envia a resposta para o cliente
                 //http code = 200

@@ -7,7 +7,7 @@ btnLogin.onclick = onclick_btnLogin;
 
 function onclick_btnLogin(){
 
-    const v_matricula = nbrmatricula.value;
+    const v_matricula = nrbMatricula.value;
     const v_senha = txtSenha.value;
     const objJson = {
         email:v_matricula,
