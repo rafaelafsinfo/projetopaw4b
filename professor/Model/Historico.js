@@ -8,7 +8,9 @@ module.exports = class Historico {
         */
         //this._banco recebe o pool de conexoes que vem sendo passado desde o arqquivo app.js
         this._banco = banco
-        this._Nota = null
+        this._Nota = {
+            idNota:null
+        }
         this._nota = null
         this._ultimaalteracao = null
         
@@ -28,7 +30,8 @@ module.exports = class Historico {
             //recupera os dados do objeto funcionario
             //os dados foram passados para o objeto funcionario (this) no arquivo rotas_funcionarios.js
             //no método app.post('/funcionarios')
-            const idnota = this.getidNota() 
+            const Nota = this.getidNota() 
+            const idnota = Nota.idNota
             const nota = this.getNota()
             const ultimaalteracao = this.getultimaalteracao()
             
@@ -126,7 +129,8 @@ module.exports = class Historico {
         const operacaoAssincrona = new Promise((resolve, reject) => {
 
 
-            const idnota = this.getidNota() 
+            const Nota = this.getidNota() 
+            const idnota = Nota.idNota
             const nota = this.getNota()
             const ultimaalteracao = this.getultimaalteracao()
             
@@ -174,7 +178,9 @@ module.exports = class Historico {
             //recupera o id que foi inserido no atribudo idFuncionario
             //a inserção é feita no arquivo rotas_funcionario.js
             //A inserção é feita dentro da função que trata a rota DELETE:/funcionarios/:id
-            const idNota = this.getidNota();
+            const Nota = this.getidNota() 
+            const idNota = Nota.idNota
+            
 
             //cria o vetor com os parametros que serão substitudios pelos sinais de ?
             let parametros = [idNota];
@@ -206,7 +212,7 @@ module.exports = class Historico {
 
 
     setidNota(nota) {
-        this._idNota = Nota_idNota
+        this._idNota = nota
     }
     getidNota() {
         return this._idNota

@@ -39,7 +39,7 @@ module.exports = class Alunos {
             const parametros = [matricula,nome, email,wpp,senha];
 
             // monta a instrução sql que será executada no sgbd
-            let sql = "INSERT INTO aluno (matricula,nome, email,wpp,senha) VALUES (?,?',?,?,?);";
+            let sql = "INSERT INTO aluno (matricula,nome, email,wpp,senha) VALUES (?,?,?,?,?);";
 
             //depois da substituição dos ? pelos dados a instrução sql é executada pelo método query
             //a substituição dos ? também é realizada no método _banco.query(
