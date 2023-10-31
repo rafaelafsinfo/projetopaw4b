@@ -4,15 +4,11 @@
 module.exports = function (app, banco) {
 
   const Alunos = require("../Model/Alunos");
-
-  //importa a classe JwtToken
-  //npm install jsonwebtoken --save 
-  //documentação: https://www.npmjs.com/package/jsonwebtoken
   const JwtToken = require('../../login/Model/JwtToken');
 
   /*************************************************************************************************************************** */
   //create
-  app.post('/professor/aluno', (request, response) => {
+  app.post('/professores/aluno', (request, response) => {
 
     //imprime no console do terminal
     //útil para debug
@@ -149,13 +145,6 @@ module.exports = function (app, banco) {
     }
   });
 
-
-  /**
-   *  
-   * resposável por tratar GET: /professores/aluno 
-   * 
-   */
-
   app.get('/professores/aluno', function (request, response) {
     console.log("rota: GET: /professores/aluno");
 
@@ -224,11 +213,6 @@ module.exports = function (app, banco) {
     }
   });
 
-  /**
-     * 
-     *  resposável por tratar get:/professores/aluno/:id
-     * 
-     */
   app.get('/professores/aluno/:id/', (request, response) => {
 
     console.log("GET: /professores/aluno:id");
@@ -303,10 +287,6 @@ module.exports = function (app, banco) {
     }
   });
 
-
-  /**
-   * update
-   */
   app.put('/professores/aluno/:id', (request, response) => {
     console.log("rota: PUT: /professores/aluno");
 
@@ -438,10 +418,6 @@ module.exports = function (app, banco) {
     }
   });
 
-
-  /**
-   * resposável por tratar DELETE: /professores/aluno/:id
-   */
   app.delete('/professores/aluno/:id', (request, response) => {
 
     console.log("rota: DELETE: /professores/aluno/:id");

@@ -26,10 +26,11 @@ module.exports = class JwtToken {
     if (token == "") {
       return retorno
     }
-    let TokenArray = token.split(" ");
+    let TokenArray = token.split(" ")
+    token = []
     token = TokenArray[1]
-    token = token.replace("<", "");
-    token = token.replace(">", "");
+    token = token?.replace("<", "") || ""
+    token = token?.replace(">", "") || ""
     try {
       var decoded = this.Jsonwebtoken.verify(token, this.JWT_KEY);
       retorno.status = true;
