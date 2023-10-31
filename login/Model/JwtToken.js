@@ -1,7 +1,7 @@
 const _jwt = require('jsonwebtoken'); 
 module.exports = class JwtToken {
   Jsonwebtoken = _jwt;
-  JWT_KEY = "09ac8db5a84d6cfd979521700cb600fa";
+  JWT_KEY = "yfyt6t7uou8y8i87utguy78y8ou8ouwou4iow39o";
   JWT_DURACAO = 60 * 60 * 24
   constructor() {
 
@@ -20,24 +20,28 @@ module.exports = class JwtToken {
       status: false,
       dados: null
     }
-    if (token == null) {  
+    if (token == null) {
       return retorno;
     }
     if (token == "") {
       return retorno
     }
-    let TokenArray = token.split(" ")
+    const TokenArray = token
     
+    console.log("tokenarray ->>" + TokenArray + "token ->>" + token)
     token = TokenArray[1]
-    /*token = token.replace("<", "")
-    token = token.replace(">", "")*/
+    token = token.replace("<", "")
+    token = token.replace(">", "")
+    
     try {
       var decoded = this.Jsonwebtoken.verify(token, this.JWT_KEY);
       retorno.status = true;
       retorno.dados = decoded;
+      console.log("try")
       return retorno;
     } catch (err) {
       //console.log(err);
+      console.log("catch")
       return retorno;
     }
   }

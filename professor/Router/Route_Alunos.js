@@ -20,17 +20,15 @@ module.exports = function (app, banco) {
     console.log(dadosAutorizacao)
     //cria um objeto da classe JwtToken
     const jwt = new JwtToken();
-
-    console.log(jwt.validarToken(dadosAutorizacao))
     //verifica se o token enviado pelo cliente é válido
-    const validacao = jwt.validarToken(dadosAutorizacao);
-    console.log(validacao);
+    const validarToken = jwt.validarToken(dadosAutorizacao);
+    console.log(validarToken);
     //entra no if se a validação do token é verdadeira
     //se a validação do token é verdadeira a propriedade validarToken.dados, 
     //possui dados do cliente no formato: {"email":"","nome":"","idFuncionario":"","idCargo":"","nomeCargo":""}
     //esses dados serão utilizados para gerar um novo token com a data de validade maior que a anterior.
     //toda vez que o token do cliente é validado é gerado um novo token mais novo na resposta da requisicao.
-    if (validacao.status == true) {
+    if (validarToken.status == true) {
 
       const matricula = request.body.matricula
       const nome = request.body.nome
@@ -47,7 +45,7 @@ module.exports = function (app, banco) {
           msg: 'o nome não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validacao.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -58,7 +56,7 @@ module.exports = function (app, banco) {
           msg: 'o email não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validacao.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -69,7 +67,7 @@ module.exports = function (app, banco) {
           msg: 'o matricula não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validacao.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -80,7 +78,7 @@ module.exports = function (app, banco) {
           msg: 'o wpp não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validacao.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -91,7 +89,7 @@ module.exports = function (app, banco) {
           msg: 'o nome não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validacao.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -125,7 +123,7 @@ module.exports = function (app, banco) {
               email: alunos.getEmail(),
               wpp: alunos.getWpp()
             },
-            token: jwt.gerarToken(validacao.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+            token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
           }
           response.status(200).send(resposta);
         }).catch((erro) => {
