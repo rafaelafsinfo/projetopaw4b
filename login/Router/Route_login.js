@@ -6,7 +6,6 @@ module.exports = function(app,banco){
         console.log("rota: POST: /login/aluno")
             const matricula = request.body.matricula
             const senha = request.body.senha
-            const jwt = new JwtToken();
             if (matricula == null || senha == "") {
                 //cria um objeto json de resposta.
                 const resposta = {

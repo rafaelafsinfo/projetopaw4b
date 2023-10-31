@@ -19,8 +19,8 @@ module.exports = class Disciplina {
         this.Turma = {
             idTurma:null,
             nome:null,
-            idTurma:null,
-            idTurma:null,
+            abreviacao:null,
+            ano:null
         }
     }
 

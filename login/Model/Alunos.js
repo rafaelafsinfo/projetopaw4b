@@ -11,7 +11,7 @@ module.exports = class Alunos {
     async login() {
         const operacaoAssincrona = new Promise((resolve, reject) => {
             const matricula = this.getMatricula();
-            const senha = this.getSenha() //md5(this.getSenha());
+            const senha = md5(this.getSenha());
             console.log(matricula,senha)
             const parametros = [matricula, senha];
             const sql = `SELECT COUNT(*) AS qtd, matricula,nome FROM aluno WHERE matricula = ? AND senha = ?`;
