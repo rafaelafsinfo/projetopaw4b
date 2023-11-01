@@ -36,10 +36,8 @@ module.exports = function (app, banco) {
           msg: 'o id da nota não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
-        //envia a resposta para o cliente
-        //http code = 200
+       
         response.status(200).send(resposta);
       } else if (nota == null) {
         const resposta = {
@@ -47,10 +45,8 @@ module.exports = function (app, banco) {
           msg: 'a nota não pode ser vazia',
           codigo: '001',
           dados: "{}",
-          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
-        //envia a resposta para o cliente
-        //http code = 200
+      
         response.status(200).send(resposta)
       } else if  (ultimaAlteracao == null) {
         const resposta = {
@@ -58,38 +54,25 @@ module.exports = function (app, banco) {
           msg: 'a data de alteração não pode ser vazia',
           codigo: '001',
           dados: "{}",
-          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
-        //envia a resposta para o cliente
-        //http code = 200
+        
         response.status(200).send(resposta)
       }else {
-        //o else só deve ser executado se todas as validações forem feitas
-        const alunos = new Alunos(banco);
+        const historico = new Historico(banco);
 
-        alunos.setMatricula(matricula)
-        alunos.setNome(nome);
-        alunos.setEmail(email);
-        alunos.setWpp(wpp)
-        alunos.setSenha(senha);
-
-        //outro modo de get e set, modo mais antigo...
-
-        //chama o método create da classe alunos...
-        //esse método executa uma instrução sql no banco.
-        //then then() é executado se alunos.create() retorna um resolve do promise
-        //caso contrário é executado um reject e cai no catch()
-        alunos.create().then((resultadosBanco) => {
-          //monta um objeto json de resposta com os dados do novo funcionário cadastrado
+        historico.setidNota(Nota_idNota)
+        historico.setNota(nota);
+        historico.setultimaalteracao(ultimaAlteracao);
+        
+        historico.create().then((resultadosBanco) => {
           const resposta = {
             status: true,
             msg: 'Executado com sucesso',
             codigo: '002',
             dados: {
-              matricula: resultadosBanco.matricula,
-              nome: alunos.getNome(),
-              email: alunos.getEmail(),
-              wpp: alunos.getWpp()
+              Nota_idNota: resultadosBanco.Nota_idNota,
+              nota: historico.getNota(),
+              ultimaAlteracao: historico.getultimaalteracao()
             }
           }
           response.status(200).send(resposta);
@@ -98,14 +81,13 @@ module.exports = function (app, banco) {
         });;
       }
     } else {
-      //token inválido
-      //monta um objeto json para resposta
+
       const resposta = {
         status: false,
         msg: 'Usuário não logado',
         codigo: 401,
         dados: {},
-        token: "" //como o token não foi valido, é enviado para o cliente um token vazio e ele perte a autorização de acesso ao sistema
+        token: "" 
       }
       //envia o objeto json como resposta para o cliente
       response.status(200).send(resposta);
@@ -115,32 +97,17 @@ module.exports = function (app, banco) {
   app.get('/professores/historico', function (request, response) {
     console.log("rota: GET: /professores/historico");
 
-    //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
-    //cria um objeto da classe JwtToken
     const jwt = new JwtToken();
 
-    //verifica se o token enviado pelo cliente é válido
     const validarToken = jwt.validarToken(dadosAutorizacao);
 
-    //entra no if se a validação do token é verdadeira
-    //se a validação do token é verdadeira a propriedade validarToken.dados, 
-    //possui dados do cliente no formato: {"email":"","nome":"","idFuncionario":"","idCargo":"","nomeCargo":""}
-    //esses dados serão utilizados para gerar um novo token com a data de validade maior que a anterior.
-    //toda vez que o token do cliente é validado é gerado um novo token mais novo na resposta da requisicao.
+    
     if (validarToken.status == true) {
-      //passando pela validação do token o código abaixo é executado.
+      
+      const historico = new Historico(banco);
 
-      //é criado um objeto de funcionario..
-      //para o objeto é passado o pool de conexoes com o banco
-      const alunos = new Alunos(banco);
-
-
-      //chama o método read() da classe Funcionario...
-      //esse método executa uma instrução sql no banco.
-      //then then() é executado se funcionario.read() retorna um resolve da promise
-      //caso contrário é executado um reject e cai no catch()
-      alunos.read().then((resultadosBanco) => {
+      historico.read().then((resultadosBanco) => {
 
         const resposta = {
           status: true,
@@ -148,12 +115,10 @@ module.exports = function (app, banco) {
           dados: resultadosBanco,
           codigo: '003',
         };
-        //envia a resposta para o cliente
         response.status(200).send(resposta);
       }).catch((erro) => {
 
-        //só é executado caso aconteça algum problema no select dos funcionarios
-        //monta um objeto json de respota
+        
         const resposta = {
           status: false,
           codigo: '004',
@@ -161,21 +126,19 @@ module.exports = function (app, banco) {
           dados: erro
         };
         console.log(erro)
-        //envia uma respota para o cliente
+        
         response.status(200).send(resposta)
 
       });;
     } else {
-      //token inválido
-      //monta um objeto json para resposta
+      
       const resposta = {
         status: false,
         msg: 'Usuário não logado',
         codigo: 401,
         dados: {},
-        token: "" //como o token não foi valido, é enviado para o cliente um token vazio e ele perte a autorização de acesso ao sistema
+        token: "" 
       }
-      //envia o objeto json como resposta para o cliente
       response.status(200).send(resposta);
     }
   });
@@ -183,29 +146,23 @@ module.exports = function (app, banco) {
   app.get('/professores/historico/:id', (request, response) => {
 
     console.log("GET: /professores/historico:id");
-    //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
+    
     const dadosAutorizacao = request.headers.authorization;
-    //cria um objeto da classe JwtToken
+    
     const jwt = new JwtToken();
-    //verifica se o token enviado pelo cliente é válido
+    
     const validarToken = jwt.validarToken(dadosAutorizacao);
-    //entra no if se a validação do token é verdadeira
-    //se a validação do token é verdadeira a propriedade validarToken.dados, 
-    //possui dados do cliente no formato: {"email":"","nome":"","idFuncionario":"","idCargo":"","nomeCargo":""}
-    //esses dados serão utilizados para gerar um novo token com a data de validade maior que a anterior.
-    //toda vez que o token do cliente é validado é gerado um novo token mais novo na resposta da requisicao.
+    
     if (validarToken.status == true) {
 
-      //recupera o id que foi enviado na uri.
-      //perceba que quando é enviado pelo uri é necessário
-      //utilizar o  (request.params) e não o (request.body)
+      
 
-      const matricula = request.params.id;
+      const Nota_idNota = request.params.id;
 
-      const alunos = new Alunos(banco);
+      const historico = new Historico(banco);
 
-      alunos.setMatricula(matricula);
-      alunos.read(matricula).then((resultadosBanco) => {
+      historico.setidNota(Nota_idNota);
+      historico.read(Nota_idNota).then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'executado com sucesso',
@@ -241,93 +198,63 @@ module.exports = function (app, banco) {
   app.put('/professores/historico/:id', (request, response) => {
     console.log("rota: PUT: /professores/historico");
 
-    //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
-    //cria um objeto da classe JwtToken
     const jwt = new JwtToken();
 
-    //verifica se o token enviado pelo cliente é válido
     const validarToken = jwt.validarToken(dadosAutorizacao);
 
     
     if (validarToken.status == true) {
-      const matricula = request.body.matricula
-      const nome = request.body.nome
-      const email = request.body.email
-      const wpp = request.body.wpp
-      const senha = request.body.senha
+      const Nota_idNota = request.body.Nota_idNota
+      const nota = request.body.nota
+      const ultimaAlteracao = request.body.ultimaAlteracao
+      
 
-      //antes de cadastrar um novo funcionário valide todos os dados de entrada:
-      //caso o nome seja vazio
-      if (nome == "") {
-        //cria um objeto json de resposta.
+      
+      if (Nota_idNota == null) {
+        
         const resposta = {
           status: true,
-          msg: 'o nome não pode ser vazio',
+          msg: 'o id da nota não pode ser vazio',
           codigo: '001',
-          dados: "{}"
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta);
-      } else if (email == "") {
-        const resposta = {
-          status: true,
-          msg: 'o email não pode ser vazio',
-          codigo: '001',
-          dados: "{}"
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
-      } else if  (matricula == null) {
-        const resposta = {
-          status: true,
-          msg: 'o matricula não pode ser vazio',
-          codigo: '001',
-          dados: "{}"
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
-      } else if (wpp == null){
-        const resposta = {
-          status: true,
-          msg: 'o wpp não pode ser vazio',
-          codigo: '001',
-          dados: "{}"
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
-      } else if (senha == ""){
-        const resposta = {
-          status: true,
-          msg: 'a senha não pode ser vazia',
-          codigo: '001',
-          dados: "{}"
+          dados: "{}",
         }
        
+        response.status(200).send(resposta);
+      } else if (nota == null) {
+        const resposta = {
+          status: true,
+          msg: 'a nota não pode ser vazia',
+          codigo: '001',
+          dados: "{}",
+        }
+      
+        response.status(200).send(resposta)
+      } else if  (ultimaAlteracao == null) {
+        const resposta = {
+          status: true,
+          msg: 'a data de alteração não pode ser vazia',
+          codigo: '001',
+          dados: "{}",
+        }
+        
         response.status(200).send(resposta)
       }else {
-        const alunos = new Alunos(banco)
+        const historico = new Historico(banco);
 
-        alunos.setMatricula(matricula)
-        alunos.setNome(nome)
-        alunos.setEmail(email)
-        alunos.setWpp(wpp)
-        alunos.setSenha(senha)
+        historico.setidNota(Nota_idNota)
+        historico.setNota(nota);
+        historico.setultimaalteracao(ultimaAlteracao);
 
-        alunos.update().then((resultadosBanco) => {
+        historico.update().then((resultadosBanco) => {
           const resposta = {
             status: true,
             msg: 'Executado com sucesso',
             codigo: '007',
             dados: {
-              matricula: alunos.getMatricula(),
-              nome: alunos.getNome(),
-              email: alunos.getEmail(),
-              wpp: alunos.getWpp(),
+              Nota_idNota: resultadosBanco.Nota_idNota,
+              nota: historico.getNota(),
+              ultimaAlteracao: historico.getultimaalteracao()
               
             },
           }
@@ -343,14 +270,13 @@ module.exports = function (app, banco) {
         });;
       }
     } else {
-      //token inválido
-      //monta um objeto json para resposta
+      
       const resposta = {
         status: false,
         msg: 'Usuário não logado',
         codigo: 401,
         dados: {},
-        token: "" //como o token não foi valido, é enviado para o cliente um token vazio e ele perte a autorização de acesso ao sistema
+        token: "" 
       }
       //envia o objeto json como resposta para o cliente
       response.status(200).send(resposta);
@@ -381,16 +307,16 @@ module.exports = function (app, banco) {
       //utilizar o  (request.params) e não o (request.body)
       const id = request.params.id; // é params.id pq na rota foi definido (:id)
 
-      const alunos = new Alunos(banco);
-      alunos.setMatricula(id);
+      const historico = new Historico(banco);
+      historico.setidNota(id);
 
-      alunos.delete().then((resultadosBanco) => {
+      historico.delete().then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'Excluido com sucesso',
           codigo: '008',
           dados: {
-            matricula: alunos.getMatricula(),
+            Nota_idNota: historico.getidNota(),
           },
         }
         response.status(200).send(resposta);
@@ -404,14 +330,13 @@ module.exports = function (app, banco) {
         response.status(200).send(resposta);
       });
     } else {
-      //token inválido
-      //monta um objeto json para resposta
+      
       const resposta = {
         status: false,
         msg: 'Usuário não logado',
         codigo: 401,
         dados: {},
-        token: "" //como o token não foi valido, é enviado para o cliente um token vazio e ele perte a autorização de acesso ao sistema
+        token: "" 
       }
       //envia o objeto json como resposta para o cliente
       response.status(200).send(resposta);

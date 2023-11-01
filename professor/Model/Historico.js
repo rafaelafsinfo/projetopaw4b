@@ -80,7 +80,7 @@ module.exports = class Historico {
             //se veio da GET:/funcionarios  => não foi inserido id, portanto é nulo
             //se veio da GET:/funcionarios/:id  => foi inserido id, id é equivalente ao valor que veio na uri
 
-            const id = this.getidDisciplina();
+            const id = this.getidNota();
 
             //o id é passado como nulo ou como o id que veio na uri.
             let params = [id];

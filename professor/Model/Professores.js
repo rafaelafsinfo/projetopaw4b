@@ -25,14 +25,14 @@ module.exports = class Professores {
         //uma instrução sql no banco.
         const operacaoAssincrona = new Promise((resolve, reject) => {
 
-
+            
             //recupera os dados do objeto funcionario
             //os dados foram passados para o objeto funcionario (this) no arquivo rotas_funcionarios.js
             //no método app.post('/funcionarios')
             const registro = this.getRegistro() 
             const nome = this.getNome();
             const email = this.getEmail();
-            const senha = md5(this.getSenha());
+            const senha = this.getSenha();
             const tipo = this.getTipo();
 
             //parametros é um vetor que recebe todos os dados que serão substituidos por ?

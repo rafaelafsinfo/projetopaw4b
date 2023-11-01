@@ -39,10 +39,8 @@ module.exports = class JwtToken {
       },this.JWT_KEY);
       retorno.status = true;
       retorno.dados = decoded;
-      console.log("try")
       return retorno;
     } catch (err) {
-      console.log("catch")
       return retorno;
     }
   }

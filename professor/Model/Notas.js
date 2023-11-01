@@ -60,7 +60,7 @@ module.exports = class Historico {
             const parametros = [idnota,disciplina_id,aluno_matricula,bimestre,nota,ultimaalteracao,tipoNota,fezLista]
 
             // monta a instrução sql que será executada no sgbd
-            let sql = "INSERT INTO nota (idNota,Disciplina_idDisciplina,AlunoMatricula,bimestre,nota,ultimaalteracao,tipoNota,fezLista) VALUES (?,?,?,?,?,?,?,?);";
+            let sql = "INSERT INTO nota (idNota,Disciplina_idDisciplina,Aluno_Matricula,bimestre,nota,ultimaalteracao,tipoNota,fezLista) VALUES (?,?,?,?,?,?,?,?);";
 
             //depois da substituição dos ? pelos dados a instrução sql é executada pelo método query
             //a substituição dos ? também é realizada no método _banco.query(
@@ -100,7 +100,7 @@ module.exports = class Historico {
             //se veio da GET:/funcionarios  => não foi inserido id, portanto é nulo
             //se veio da GET:/funcionarios/:id  => foi inserido id, id é equivalente ao valor que veio na uri
 
-            const id = this.getidDisciplina();
+            const id = this.getidNota();
 
             //o id é passado como nulo ou como o id que veio na uri.
             let params = [id];
@@ -112,7 +112,7 @@ module.exports = class Historico {
             if (id == null) {
                 SQL = "SELECT * FROM nota ORDER BY idNota";
             } else {
-                SQL = "SELECT * FROM nota where Nota_idNota =? ORDER BY idNota";
+                SQL = "SELECT * FROM nota where idNota =? ORDER BY idNota";
             }
 
             //depois da substituição dos ? pelos dados a instrução sql é executada pelo método query
@@ -164,9 +164,9 @@ module.exports = class Historico {
 
             //parametros é um vetor que recebe todos os dados que serão substituidos por ?
             const parametros = [disciplina_id,aluno_matricula,bimestre,nota,ultimaalteracao,tipoNota,fezLista,idnota]
-
+            console.log(parametros)
             //cria a instrução sql que será executada
-            const sql = "update nota set Disciplina_idDisciplina=?,AlunoMatricula=?,bimestre=?,nota=?,ultimaalteracao=?,tipoNota=?,fezLista=? where Nota_idNota = ?";
+            const sql = "update nota set Disciplina_idDisciplina=?,Aluno_Matricula=?,bimestre=?,nota=?,ultimaalteracao=?,tipoNota=?,fezLista=? where idNota = ?";
 
             //substitui os sinais de ? pelos parametros e executa a instrução no sgbd
             this._banco.query(sql, parametros, function (error, result) {

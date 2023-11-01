@@ -3,12 +3,12 @@
 // de rotas_funcionarios no arquivo app.js
 module.exports = function (app, banco) {
 
-  const Alunos = require("../Model/Alunos");
+  const Professores = require("../Model/Professores");
   const JwtToken = require('../../login/Model/JwtToken');
   
   /*************************************************************************************************************************** */
   //create
-  app.post('/professores/aluno', (request, response) => {
+  app.post('/professores/professores', (request, response) => {
 
 
     //imprime no console do terminal
@@ -23,11 +23,11 @@ module.exports = function (app, banco) {
     
     if (validarToken.status == true) {
 
-      const matricula = request.body.matricula
+      const registro = request.body.registro
       const nome = request.body.nome
       const email = request.body.email
-      const wpp = request.body.wpp
       const senha = request.body.senha
+      const tipo = request.body.tipo
 
       
       if (nome == "") {
@@ -53,10 +53,10 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if  (matricula == null) {
+      } else if  (registro == null) {
         const resposta = {
           status: true,
-          msg: 'o matricula não pode ser vazio',
+          msg: 'o registro não pode ser vazio',
           codigo: '001',
           dados: "{}",
           //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
@@ -64,10 +64,10 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if (wpp == null){
+      } else if (tipo == null){
         const resposta = {
           status: true,
-          msg: 'o wpp não pode ser vazio',
+          msg: 'o tipo não pode ser vazio',
           codigo: '001',
           dados: "{}",
           //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
@@ -89,21 +89,20 @@ module.exports = function (app, banco) {
       }
       else {
         //o else só deve ser executado se todas as validações forem feitas
-        const alunos = new Alunos(banco);
+        const Professores = new Professores(banco);
 
-        alunos.setMatricula(matricula)
-        alunos.setNome(nome);
-        alunos.setEmail(email);
-        alunos.setWpp(wpp)
-        alunos.setSenha(senha);
-
+        Professores.setRegistro(matricula)
+        Professores.setNome(nome);
+        Professores.setEmail(email);
+        Professores.setSenha(senha);
+        Professores.setTipo(tipo);
         //outro modo de get e set, modo mais antigo...
 
-        //chama o método create da classe alunos...
+        //chama o método create da classe Professores...
         //esse método executa uma instrução sql no banco.
         //then then() é executado se alunos.create() retorna um resolve do promise
         //caso contrário é executado um reject e cai no catch()
-        alunos.create().then((resultadosBanco) => {
+        Professores.create().then((resultadosBanco) => {
           //monta um objeto json de resposta com os dados do novo funcionário cadastrado
           const resposta = {
             status: true,
@@ -113,7 +112,7 @@ module.exports = function (app, banco) {
               matricula: resultadosBanco.matricula,
               nome: alunos.getNome(),
               email: alunos.getEmail(),
-              wpp: alunos.getWpp()
+              wpp: alunos.getTipo()
             }
           }
           response.status(200).send(resposta);
@@ -136,8 +135,8 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.get('/professores/aluno', function (request, response) {
-    console.log("rota: GET: /professores/aluno");
+  app.get('/professores/professores', function (request, response) {
+    console.log("rota: GET: /professores/professores");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
@@ -157,14 +156,14 @@ module.exports = function (app, banco) {
 
       //é criado um objeto de funcionario..
       //para o objeto é passado o pool de conexoes com o banco
-      const alunos = new Alunos(banco);
+      const Professores = new Professores(banco);
 
 
       //chama o método read() da classe Funcionario...
       //esse método executa uma instrução sql no banco.
       //then then() é executado se funcionario.read() retorna um resolve da promise
       //caso contrário é executado um reject e cai no catch()
-      alunos.read().then((resultadosBanco) => {
+      Professores.read().then((resultadosBanco) => {
 
         const resposta = {
           status: true,
@@ -204,9 +203,9 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.get('/professores/aluno/:id', (request, response) => {
+  app.get('/professores/professores/:id', (request, response) => {
 
-    console.log("GET: /professores/aluno:id");
+    console.log("GET: /professores/professores:id");
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
     //cria um objeto da classe JwtToken
@@ -224,12 +223,12 @@ module.exports = function (app, banco) {
       //perceba que quando é enviado pelo uri é necessário
       //utilizar o  (request.params) e não o (request.body)
 
-      const matricula = request.params.id;
+      const registro = request.params.id;
 
-      const alunos = new Alunos(banco);
+      const Professores = new Porfessores(banco);
 
-      alunos.setMatricula(matricula);
-      alunos.read(matricula).then((resultadosBanco) => {
+      Professores.setMatricula(registro);
+      Professores.read(registro).then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'executado com sucesso',
@@ -262,8 +261,8 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.put('/professores/aluno/:id', (request, response) => {
-    console.log("rota: PUT: /professores/aluno");
+  app.put('/professores/professores/:id', (request, response) => {
+    console.log("rota: PUT: /professores/professores");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
@@ -275,11 +274,11 @@ module.exports = function (app, banco) {
 
     
     if (validarToken.status == true) {
-      const matricula = request.body.matricula
+      const registro = request.body.registro
       const nome = request.body.nome
       const email = request.body.email
-      const wpp = request.body.wpp
       const senha = request.body.senha
+      const tipo = request.body.tipo
 
       //antes de cadastrar um novo funcionário valide todos os dados de entrada:
       //caso o nome seja vazio
@@ -304,20 +303,20 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if  (matricula == null) {
+      } else if  (registro == null) {
         const resposta = {
           status: true,
-          msg: 'o matricula não pode ser vazio',
+          msg: 'o registro não pode ser vazio',
           codigo: '001',
           dados: "{}"
         }
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if (wpp == null){
+      } else if (tipo == null){
         const resposta = {
           status: true,
-          msg: 'o wpp não pode ser vazio',
+          msg: 'o tipo não pode ser vazio',
           codigo: '001',
           dados: "{}"
         }
@@ -334,24 +333,24 @@ module.exports = function (app, banco) {
        
         response.status(200).send(resposta)
       }else {
-        const alunos = new Alunos(banco)
+        const Professores = new Professores(banco)
 
-        alunos.setMatricula(matricula)
-        alunos.setNome(nome)
-        alunos.setEmail(email)
-        alunos.setWpp(wpp)
-        alunos.setSenha(senha)
+        Professores.setMatricula(matricula)
+        Professores.setNome(nome)
+        Professores.setEmail(email)
+        Professores.setWpp(wpp)
+        Professores.setSenha(senha)
 
-        alunos.update().then((resultadosBanco) => {
+        Professores.update().then((resultadosBanco) => {
           const resposta = {
             status: true,
             msg: 'Executado com sucesso',
             codigo: '007',
             dados: {
-              matricula: alunos.getMatricula(),
-              nome: alunos.getNome(),
-              email: alunos.getEmail(),
-              wpp: alunos.getWpp(),
+              matricula: Professores.getMatricula(),
+              nome: Professores.getNome(),
+              email: Professores.getEmail(),
+              tipo: professores.getTipo(),
               
             },
           }
