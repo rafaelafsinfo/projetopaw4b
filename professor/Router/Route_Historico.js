@@ -3,12 +3,12 @@
 // de rotas_funcionarios no arquivo app.js
 module.exports = function (app, banco) {
 
-  const Alunos = require("../Model/Alunos");
+  const Historico = require("../Model/Historico");
   const JwtToken = require('../../login/Model/JwtToken');
   
   /*************************************************************************************************************************** */
   //create
-  app.post('/professores/aluno', (request, response) => {
+  app.post('/professores/historico', (request, response) => {
 
 
     //imprime no console do terminal
@@ -23,18 +23,17 @@ module.exports = function (app, banco) {
     
     if (validarToken.status == true) {
 
-      const matricula = request.body.matricula
-      const nome = request.body.nome
-      const email = request.body.email
-      const wpp = request.body.wpp
-      const senha = request.body.senha
+      const Nota_idNota = request.body.Nota_idNota
+      const nota = request.body.nota
+      const ultimaAlteracao = request.body.ultimaAlteracao
+      
 
       
-      if (nome == "") {
+      if (Nota_idNota == null) {
         
         const resposta = {
           status: true,
-          msg: 'o nome não pode ser vazio',
+          msg: 'o id da nota não pode ser vazio',
           codigo: '001',
           dados: "{}",
           //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
@@ -42,10 +41,10 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta);
-      } else if (email == "") {
+      } else if (nota == null) {
         const resposta = {
           status: true,
-          msg: 'o email não pode ser vazio',
+          msg: 'a nota não pode ser vazia',
           codigo: '001',
           dados: "{}",
           //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
@@ -53,10 +52,10 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if  (matricula == null) {
+      } else if  (ultimaAlteracao == null) {
         const resposta = {
           status: true,
-          msg: 'o matricula não pode ser vazio',
+          msg: 'a data de alteração não pode ser vazia',
           codigo: '001',
           dados: "{}",
           //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
@@ -64,30 +63,7 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if (wpp == null){
-        const resposta = {
-          status: true,
-          msg: 'o wpp não pode ser vazio',
-          codigo: '001',
-          dados: "{}",
-          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
-      } else if (senha == ""){
-        const resposta = {
-          status: true,
-          msg: 'o nome não pode ser vazio',
-          codigo: '001',
-          dados: "{}",
-          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
-      }
-      else {
+      }else {
         //o else só deve ser executado se todas as validações forem feitas
         const alunos = new Alunos(banco);
 
@@ -136,8 +112,8 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.get('/professores/aluno', function (request, response) {
-    console.log("rota: GET: /professores/aluno");
+  app.get('/professores/historico', function (request, response) {
+    console.log("rota: GET: /professores/historico");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
@@ -204,9 +180,9 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.get('/professores/aluno/:id', (request, response) => {
+  app.get('/professores/historico/:id', (request, response) => {
 
-    console.log("GET: /professores/aluno:id");
+    console.log("GET: /professores/historico:id");
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
     //cria um objeto da classe JwtToken
@@ -262,8 +238,8 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.put('/professores/aluno/:id', (request, response) => {
-    console.log("rota: PUT: /professores/aluno");
+  app.put('/professores/historico/:id', (request, response) => {
+    console.log("rota: PUT: /professores/historico");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
@@ -381,9 +357,9 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.delete('/professores/aluno/:id', (request, response) => {
+  app.delete('/professores/historico/:id', (request, response) => {
 
-    console.log("rota: DELETE: /professores/aluno/:id");
+    console.log("rota: DELETE: /professores/historico/:id");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
