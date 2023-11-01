@@ -1,4 +1,4 @@
-module.exports = class Disciplina {
+module.exports = class Disciplinas {
 
     constructor(banco) {
         /*

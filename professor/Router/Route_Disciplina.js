@@ -1,6 +1,3 @@
-
-//app e banco são recebidos quando fazemos a chamada
-// de rotas_funcionarios no arquivo app.js
 module.exports = function (app, banco) {
 
   const Disciplinas = require("../Model/Disciplinas");
@@ -13,7 +10,7 @@ module.exports = function (app, banco) {
 
     //imprime no console do terminal
     //útil para debug
-    console.log("rota => POST: /professor/aluno");
+    console.log("rota => POST: /professor/disciplina");
 
     const dadosAutorizacao = request.headers.authorization;
     
@@ -71,7 +68,7 @@ module.exports = function (app, banco) {
         response.status(200).send(resposta)
       } else {
         //o else só deve ser executado se todas as validações forem feitas
-        const disciplinas = new Disciplinas(banco);
+        const disciplinas = new Disciplina(banco);
 
         disciplinas.setidDisciplina(idDisciplina)
         disciplinas.setNome(nome);
@@ -132,14 +129,14 @@ module.exports = function (app, banco) {
 
       //é criado um objeto de funcionario..
       //para o objeto é passado o pool de conexoes com o banco
-      const alunos = new Alunos(banco);
+      const disciplina = new Disciplinas(banco);
 
 
       //chama o método read() da classe Funcionario...
       //esse método executa uma instrução sql no banco.
       //then then() é executado se funcionario.read() retorna um resolve da promise
       //caso contrário é executado um reject e cai no catch()
-      alunos.read().then((resultadosBanco) => {
+      disciplina.read().then((resultadosBanco) => {
 
         const resposta = {
           status: true,
@@ -178,7 +175,7 @@ module.exports = function (app, banco) {
       response.status(200).send(resposta);
     }
   });
-
+/*
   app.get('/professores/disciplina/:id', (request, response) => {
 
     console.log("GET: /professores/disciplina:id");
@@ -416,5 +413,5 @@ module.exports = function (app, banco) {
       response.status(200).send(resposta);
 
     }
-  });
+  });*/
 };

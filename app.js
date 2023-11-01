@@ -3,6 +3,7 @@ const mysql = require('mysql')
 
 const Route_login = require("./login/Router/Route_login")
 const Route_Alunos = require("./professor/Router/Route_Alunos")
+const Route_Disciplina = require("./professor/Model/Disciplina")
 
 const app = express()
 
@@ -19,6 +20,7 @@ app.use('/view', express.static(__dirname + '/view'))
 
 Route_login(app,banco)
 Route_Alunos(app,banco)
+Route_Disciplina(app,banco)
 
 app.get("/loginaluno",function(request,response){
   response.sendFile(__dirname+'/login/View/Login_Aluno.html')
