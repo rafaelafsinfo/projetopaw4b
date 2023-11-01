@@ -17,18 +17,10 @@ module.exports = class Alunos {
         this._senha = null;
     }
 
-    /**
-     * o método é chamado no arquivo rotas_funcionarios.js quando é recebido um POST:/funcionário
-     * @returns {Promise} resolve se cadastrado e reject caso aconteça algum erro
-     */
-
     async create() {
-        //cria uma promise que retornará dados referentes a execução de 
-        //uma instrução sql no banco.
+        
         const operacaoAssincrona = new Promise((resolve, reject) => {
-            //recupera os dados do objeto funcionario
-            //os dados foram passados para o objeto funcionario (this) no arquivo rotas_funcionarios.js
-            //no método app.post('/funcionarios')
+           
             const matricula = this.getMatricula() 
             const nome = this.getNome();
             const email = this.getEmail();
@@ -36,10 +28,8 @@ module.exports = class Alunos {
             const senha = this.getSenha();
 
 
-            //parametros é um vetor que recebe todos os dados que serão substituidos por ?
             const parametros = [matricula,nome, email,wpp,senha];
 
-            // monta a instrução sql que será executada no sgbd
             let sql = "INSERT INTO aluno (matricula,nome, email,wpp,senha) VALUES (?,?,?,?,?);";
 
             //depois da substituição dos ? pelos dados a instrução sql é executada pelo método query
@@ -65,13 +55,7 @@ module.exports = class Alunos {
     }
 
 
-    /**
-      * o método é chamado no arquivo rotas_funcionarios
-      * quando é recebido um GET:/funcionarios ou
-      * quando é recebido um GET:/funcionarios/:id
-      * observe que as as duas rotas chamam o mesmo método read()
-      * @returns {Promise} resolve se o sql for executado com sucesso e reject caso aconteça algum erro
-      */
+    
     async read() {
         //cria uma promise que retornará dados referentes a execução de 
         //uma instrução sql no banco.
@@ -82,7 +66,7 @@ module.exports = class Alunos {
 
             const id = this.getMatricula();
 
-            //o id é passado como nulo ou como o id que veio na uri.
+            //o matricula é passado como nulo ou como o matricula que veio na uri.
             let params = [id]
             let SQL = "";
 
@@ -90,7 +74,7 @@ module.exports = class Alunos {
             //caso o id não seja nulo cai no else
             if (id == null) {
                 SQL = "SELECT matricula,nome,email,wpp FROM aluno ORDER BY nome,matricula";
-            } else {
+            } if (id != null){
                 SQL = "SELECT matricula,nome,email,wpp FROM aluno where matricula=? ORDER BY nome,matricula ";
             }
 
