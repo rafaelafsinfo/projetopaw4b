@@ -22,7 +22,7 @@ module.exports = function (app, banco) {
 
       const idDisciplina = request.body.idDisciplina
       const nome = request.body.nome
-      const Professor_Registro = request.body.Professor_Registro
+      const Professor_registro = request.body.Professor_registro
       const Turma_idTurma = request.body.Turma_idTurma
       
       if (nome == "") {
@@ -46,7 +46,7 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if  (Professor_Registro == null) {
+      } else if  (Professor_registro == null) {
         const resposta = {
           status: true,
           msg: 'o Professor_registro não pode ser vazio',
@@ -70,7 +70,7 @@ module.exports = function (app, banco) {
 
         disciplinas.setIdDisciplina(idDisciplina)
         disciplinas.setNome(nome)
-        disciplinas.setProfessor(Professor_Registro)
+        disciplinas.setProfessor(Professor_registro)
         disciplinas.setTurma(Turma_idTurma)
         
         disciplinas.create().then((resultadosBanco) => {
@@ -194,12 +194,12 @@ module.exports = function (app, banco) {
       //perceba que quando é enviado pelo uri é necessário
       //utilizar o  (request.params) e não o (request.body)
 
-      const matricula = request.params.id;
+      const id = request.params.id;
 
-      const alunos = new Alunos(banco);
+      const disciplina = new Disciplinas(banco);
 
-      alunos.setMatricula(matricula);
-      alunos.read(matricula).then((resultadosBanco) => {
+      disciplina.setIdDisciplina(id);
+      disciplina.read(id).then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'executado com sucesso',
@@ -245,83 +245,70 @@ module.exports = function (app, banco) {
 
     
     if (validarToken.status == true) {
-      const matricula = request.body.matricula
+      const idDisciplina = request.body.idDisciplina
       const nome = request.body.nome
-      const email = request.body.email
-      const wpp = request.body.wpp
-      const senha = request.body.senha
-
-      //antes de cadastrar um novo funcionário valide todos os dados de entrada:
-      //caso o nome seja vazio
+      const Professor_registro = request.body.Professor_registro
+      const Turma_idTurma = request.body.Turma_idTurma
+      
       if (nome == "") {
-        //cria um objeto json de resposta.
+        
         const resposta = {
           status: true,
           msg: 'o nome não pode ser vazio',
           codigo: '001',
-          dados: "{}"
+          dados: "{}",
         }
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta);
-      } else if (email == "") {
+      } else if (idDisciplina == null) {
         const resposta = {
           status: true,
-          msg: 'o email não pode ser vazio',
+          msg: 'o idDisciplina não pode ser vazio',
           codigo: '001',
-          dados: "{}"
+          dados: "{}",
         }
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if  (matricula == null) {
+      } else if  (Professor_registro == null) {
         const resposta = {
           status: true,
-          msg: 'o matricula não pode ser vazio',
+          msg: 'o Professor_registro não pode ser vazio',
           codigo: '001',
-          dados: "{}"
+          dados: "{}",
         }
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if (wpp == null){
+      } else if (Turma_idTurma == null){
         const resposta = {
           status: true,
-          msg: 'o wpp não pode ser vazio',
+          msg: 'o id da turma não pode ser vazio',
           codigo: '001',
-          dados: "{}"
+          dados: "{}",
         }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
-      } else if (senha == ""){
-        const resposta = {
-          status: true,
-          msg: 'a senha não pode ser vazia',
-          codigo: '001',
-          dados: "{}"
-        }
-       
-        response.status(200).send(resposta)
-      }else {
-        const alunos = new Alunos(banco)
 
-        alunos.setMatricula(matricula)
-        alunos.setNome(nome)
-        alunos.setEmail(email)
-        alunos.setWpp(wpp)
-        alunos.setSenha(senha)
+        response.status(200).send(resposta)
+      } else {
+        const disciplinas = new Disciplinas(banco)
 
-        alunos.update().then((resultadosBanco) => {
+        disciplinas.setIdDisciplina(idDisciplina)
+        disciplinas.setNome(nome)
+        disciplinas.setProfessor(Professor_registro)
+        disciplinas.setTurma(Turma_idTurma)
+
+
+        disciplinas.update().then((resultadosBanco) => {
           const resposta = {
             status: true,
             msg: 'Executado com sucesso',
             codigo: '007',
             dados: {
-              matricula: alunos.getMatricula(),
-              nome: alunos.getNome(),
-              email: alunos.getEmail(),
-              wpp: alunos.getWpp(),
+              idDisciplina: resultadosBanco.idDisciplina,
+              nome: disciplinas.getNome(),
+              professor: disciplinas.getProfessor().registro,
+              turma: disciplinas.getTurma().idTurma
               
             },
           }
@@ -333,12 +320,12 @@ module.exports = function (app, banco) {
             codigo: '010',
             dados: erro,
           }
+          console.log(erro)
           response.status(200).send(resposta);
         });;
       }
     } else {
-      //token inválido
-      //monta um objeto json para resposta
+      
       const resposta = {
         status: false,
         msg: 'Usuário não logado',
@@ -373,18 +360,18 @@ module.exports = function (app, banco) {
       //recupera o id que foi enviado na uri.
       //perceba que quando é enviado pelo uri é necessário
       //utilizar o  (request.params) e não o (request.body)
-      const id = request.params.id; // é params.id pq na rota foi definido (:id)
+      const id = request.params.id
 
-      const alunos = new Alunos(banco);
-      alunos.setMatricula(id);
+      const disciplinas = new Disciplinas(banco);
+      disciplinas.setIdDisciplina(id);
 
-      alunos.delete().then((resultadosBanco) => {
+      disciplinas.delete().then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'Excluido com sucesso',
           codigo: '008',
           dados: {
-            matricula: alunos.getMatricula(),
+            matricula: disciplinas.getIdDisciplina(),
           },
         }
         response.status(200).send(resposta);
@@ -395,6 +382,7 @@ module.exports = function (app, banco) {
           codigo: '009',
           dados: erro,
          }
+         console.log(erro)
         response.status(200).send(resposta);
       });
     } else {

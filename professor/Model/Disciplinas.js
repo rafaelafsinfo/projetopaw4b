@@ -16,6 +16,7 @@ module.exports = class Disciplinas {
             email: null,
             tipo: null
         }
+        
         this.Turma = {
             idTurma:null,
             nome:null,
@@ -40,17 +41,17 @@ module.exports = class Disciplinas {
             //no método app.post('/funcionarios')
             const iddisciplina = this.getIdDisciplina() 
             const nome = this.getNome();
-            const professor = this.getProfessor();
+            const professor = this.getProfessor()
             const professor_registro = professor.registro
             const turma = this.getTurma()
-            const turma_idturma = turma.idTurma
-            
-
+            const idTurma = turma.idTurma
+            console.log("professsor ->"+this.getProfessor())
             //parametros é um vetor que recebe todos os dados que serão substituidos por ?
-            const parametros = [iddisciplina,nome, professor_registro,turma_idturma]
+            const parametros = [iddisciplina,nome,professor_registro,idTurma]
+            console.log(parametros)
 
             // monta a instrução sql que será executada no sgbd
-            let sql = "INSERT INTO disciplina (idDisciplina,nome, Professor_registro,Turma_idTurma) VALUES (?,?,?,?);";
+            let sql = "INSERT INTO disciplina (idDisciplina,nome,Professor_registro,Turma_idTurma) VALUES (?,?,?,?);";
 
             //depois da substituição dos ? pelos dados a instrução sql é executada pelo método query
             //a substituição dos ? também é realizada no método _banco.query(
@@ -90,8 +91,7 @@ module.exports = class Disciplinas {
             //se veio da GET:/funcionarios  => não foi inserido id, portanto é nulo
             //se veio da GET:/funcionarios/:id  => foi inserido id, id é equivalente ao valor que veio na uri
 
-            const id = this.getidDisciplina();
-
+            const id = this.getIdDisciplina()
             //o id é passado como nulo ou como o id que veio na uri.
             let params = [id];
 
@@ -139,15 +139,15 @@ module.exports = class Disciplinas {
         const operacaoAssincrona = new Promise((resolve, reject) => {
 
 
-            const iddisciplina = this.getidDisciplina() 
-            const nome = this.getNome();
-            const professor = this.getProfessor();
+            const iddisciplina = this.getIdDisciplina() 
+            const nome = this.getNome()
+            const professor = this.getProfessor()
             const professor_registro = professor.registro
             const turma = this.getTurma()
             const turma_idturma = turma.idTurma
 
             const parametros = [nome, professor_registro,turma_idturma,iddisciplina]
-
+            console.log()
             //cria a instrução sql que será executada
             const sql = "update disciplina set nome=?,Professor_registro=?,Turma_idTurma = ? where idDisciplina = ?";
 
@@ -188,11 +188,10 @@ module.exports = class Disciplinas {
             //recupera o id que foi inserido no atribudo idFuncionario
             //a inserção é feita no arquivo rotas_funcionario.js
             //A inserção é feita dentro da função que trata a rota DELETE:/funcionarios/:id
-            const iddisciplina = this.getidDisciplina();
+            const iddisciplina = this.getIdDisciplina();
 
             //cria o vetor com os parametros que serão substitudios pelos sinais de ?
             let parametros = [iddisciplina];
-
             //cria a instrução sql que será executada
             let sql = "delete from disciplina where idDisciplina = ?";
             //substitui os sinais de ? pelos parametros e executa a instrução no sgbd
