@@ -9,25 +9,18 @@ module.exports = function (app, banco) {
   /*************************************************************************************************************************** */
   //create
   app.post('/professores/aluno', (request, response) => {
-    const md5 = require("md5")
+
 
     //imprime no console do terminal
     //útil para debug
     console.log("rota => POST: /professor/aluno");
 
-    //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
-    console.log(dadosAutorizacao)
-    //cria um objeto da classe JwtToken
+    
     const jwt = new JwtToken();
-    //verifica se o token enviado pelo cliente é válido
+    
     const validarToken = jwt.validarToken(dadosAutorizacao);
-    console.log(validarToken);
-    //entra no if se a validação do token é verdadeira
-    //se a validação do token é verdadeira a propriedade validarToken.dados, 
-    //possui dados do cliente no formato: {"email":"","nome":"","idFuncionario":"","idCargo":"","nomeCargo":""}
-    //esses dados serão utilizados para gerar um novo token com a data de validade maior que a anterior.
-    //toda vez que o token do cliente é validado é gerado um novo token mais novo na resposta da requisicao.
+    
     if (validarToken.status == true) {
 
       const matricula = request.body.matricula
@@ -36,16 +29,15 @@ module.exports = function (app, banco) {
       const wpp = request.body.wpp
       const senha = request.body.senha
 
-      //antes de cadastrar um novo funcionário valide todos os dados de entrada:
-      //caso o nome seja vazio
+      
       if (nome == "") {
-        //cria um objeto json de resposta.
+        
         const resposta = {
           status: true,
           msg: 'o nome não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -56,7 +48,7 @@ module.exports = function (app, banco) {
           msg: 'o email não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -67,7 +59,7 @@ module.exports = function (app, banco) {
           msg: 'o matricula não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -78,7 +70,7 @@ module.exports = function (app, banco) {
           msg: 'o wpp não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -89,7 +81,7 @@ module.exports = function (app, banco) {
           msg: 'o nome não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -103,7 +95,7 @@ module.exports = function (app, banco) {
         alunos.setNome(nome);
         alunos.setEmail(email);
         alunos.setWpp(wpp)
-        alunos.md5(this.setSenha());
+        alunos.setSenha(senha);
 
         //outro modo de get e set, modo mais antigo...
 
@@ -122,8 +114,7 @@ module.exports = function (app, banco) {
               nome: alunos.getNome(),
               email: alunos.getEmail(),
               wpp: alunos.getWpp()
-            },
-            token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
+            }
           }
           response.status(200).send(resposta);
         }).catch((erro) => {
@@ -180,7 +171,6 @@ module.exports = function (app, banco) {
           msg: 'Executado com sucesso',
           dados: resultadosBanco,
           codigo: '003',
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         };
         //envia a resposta para o cliente
         response.status(200).send(resposta);
@@ -194,8 +184,9 @@ module.exports = function (app, banco) {
           msg: 'erro ao executar',
           dados: erro
         };
+        console.log(erro)
         //envia uma respota para o cliente
-        response.status(200).send(resposta);
+        response.status(200).send(resposta)
 
       });;
     } else {
@@ -213,7 +204,7 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.get('/professores/aluno/:id/', (request, response) => {
+  app.get('/professores/aluno/:id', (request, response) => {
 
     console.log("GET: /professores/aluno:id");
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
@@ -255,7 +246,6 @@ module.exports = function (app, banco) {
           status: true,
           msg: 'executado com sucesso',
           dados: resultadosBanco,
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         };
         response.status(200).send(resposta);
       }).catch((erro) => {
@@ -287,7 +277,7 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.put('/professores/aluno/:id', (request, response) => {
+  app.patch('/professores/aluno/:id', (request, response) => {
     console.log("rota: PUT: /professores/aluno");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
@@ -319,7 +309,6 @@ module.exports = function (app, banco) {
           msg: 'o nome não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -330,7 +319,6 @@ module.exports = function (app, banco) {
           msg: 'o email não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -341,7 +329,6 @@ module.exports = function (app, banco) {
           msg: 'o matricula não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -352,7 +339,6 @@ module.exports = function (app, banco) {
           msg: 'o wpp não pode ser vazio',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -363,7 +349,6 @@ module.exports = function (app, banco) {
           msg: 'a senha não pode ser vazia',
           codigo: '001',
           dados: "{}",
-          token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
@@ -377,7 +362,7 @@ module.exports = function (app, banco) {
         alunos.setWpp(wpp)
         alunos.setSenha(senha)
 
-        funcionario.update().then((resultadosBanco) => {
+        alunos.update().then((resultadosBanco) => {
           const resposta = {
             status: true,
             msg: 'Executado com sucesso',
@@ -389,7 +374,6 @@ module.exports = function (app, banco) {
               wpp: alunos.getWpp(),
               
             },
-            token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
           }
           response.status(200).send(resposta);
         }).catch((erro) => {
@@ -398,7 +382,6 @@ module.exports = function (app, banco) {
             msg: 'erro ao executar',
             codigo: '010',
             dados: erro,
-            token: jwt.gerarToken(validarToken.dados.data), //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
           }
           response.status(200).send(resposta);
         });;
@@ -445,15 +428,14 @@ module.exports = function (app, banco) {
       const alunos = new Alunos(banco);
       alunos.setMatricula(id);
 
-      funcionario.delete().then((resultadosBanco) => {
+      alunos.delete().then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'Excluido com sucesso',
           codigo: '008',
           dados: {
-            matricula: funcionario.getMatricula(),
+            matricula: alunos.getMatricula(),
           },
-          token: jwt.gerarToken(validarToken.dados.data), //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         response.status(200).send(resposta);
       }).catch((erro) => {
@@ -462,8 +444,7 @@ module.exports = function (app, banco) {
           msg: 'erro ao executar',
           codigo: '009',
           dados: erro,
-          token: jwt.gerarToken(validarToken.dados.data), //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
-        }
+         }
         response.status(200).send(resposta);
       });
     } else {

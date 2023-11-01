@@ -28,19 +28,20 @@ module.exports = class JwtToken {
     }
     const TokenArray = token
     
-    console.log("tokenarray ->>" + TokenArray + "token ->>" + token)
+    //console.log("tokenarray ->>" + TokenArray +"\n"+ "token ->>" + token)
     token = TokenArray[1]
     token = token.replace("<", "")
     token = token.replace(">", "")
-    
     try {
-      var decoded = this.Jsonwebtoken.verify(token, this.JWT_KEY);
+      
+      var decoded = this.Jsonwebtoken.decode(token,function(err,decoded){
+        console.log(decoded.token)
+      },this.JWT_KEY);
       retorno.status = true;
       retorno.dados = decoded;
       console.log("try")
       return retorno;
     } catch (err) {
-      //console.log(err);
       console.log("catch")
       return retorno;
     }

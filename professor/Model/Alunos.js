@@ -1,3 +1,5 @@
+const md5 = require("md5");
+
 module.exports = class Alunos {
 
     constructor(banco) {
@@ -24,8 +26,6 @@ module.exports = class Alunos {
         //cria uma promise que retornará dados referentes a execução de 
         //uma instrução sql no banco.
         const operacaoAssincrona = new Promise((resolve, reject) => {
-
-
             //recupera os dados do objeto funcionario
             //os dados foram passados para o objeto funcionario (this) no arquivo rotas_funcionarios.js
             //no método app.post('/funcionarios')
@@ -33,7 +33,8 @@ module.exports = class Alunos {
             const nome = this.getNome();
             const email = this.getEmail();
             const wpp = this.getWpp();
-            const senha = md5(this.getSenha());
+            const senha = this.getSenha();
+
 
             //parametros é um vetor que recebe todos os dados que serão substituidos por ?
             const parametros = [matricula,nome, email,wpp,senha];
@@ -82,8 +83,7 @@ module.exports = class Alunos {
             const id = this.getMatricula();
 
             //o id é passado como nulo ou como o id que veio na uri.
-            let params = [id];
-
+            let params = [id]
             let SQL = "";
 
             //caso o id seja nulo entra no if e executa a primeira instrução sql
