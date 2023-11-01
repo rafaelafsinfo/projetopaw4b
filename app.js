@@ -3,7 +3,7 @@ const mysql = require('mysql')
 
 const Route_login = require("./login/Router/Route_login")
 const Route_Alunos = require("./professor/Router/Route_Alunos")
-const Route_Disciplina = require("./professor/Model/Disciplina")
+const Route_Disciplina = require("./professor/Router/Route_Disciplinas")
 
 const app = express()
 

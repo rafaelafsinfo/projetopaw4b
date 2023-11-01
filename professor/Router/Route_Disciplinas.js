@@ -63,16 +63,14 @@ module.exports = function (app, banco) {
           codigo: '001',
           dados: "{}",
         }
-        //envia a resposta para o cliente
-        //http code = 200
+
         response.status(200).send(resposta)
       } else {
-        //o else só deve ser executado se todas as validações forem feitas
-        const disciplinas = new Disciplina(banco);
+        const disciplinas = new Disciplinas(banco)
 
-        disciplinas.setidDisciplina(idDisciplina)
-        disciplinas.setNome(nome);
-        disciplinas.setProfessor(Professor_Registro);
+        disciplinas.setIdDisciplina(idDisciplina)
+        disciplinas.setNome(nome)
+        disciplinas.setProfessor(Professor_Registro)
         disciplinas.setTurma(Turma_idTurma)
         
         disciplinas.create().then((resultadosBanco) => {
@@ -175,7 +173,7 @@ module.exports = function (app, banco) {
       response.status(200).send(resposta);
     }
   });
-/*
+
   app.get('/professores/disciplina/:id', (request, response) => {
 
     console.log("GET: /professores/disciplina:id");
@@ -413,5 +411,5 @@ module.exports = function (app, banco) {
       response.status(200).send(resposta);
 
     }
-  });*/
+  });
 };

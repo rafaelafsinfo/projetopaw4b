@@ -38,7 +38,7 @@ module.exports = class Disciplinas {
             //recupera os dados do objeto funcionario
             //os dados foram passados para o objeto funcionario (this) no arquivo rotas_funcionarios.js
             //no método app.post('/funcionarios')
-            const iddisciplina = this.getidDisciplina() 
+            const iddisciplina = this.getIdDisciplina() 
             const nome = this.getNome();
             const professor = this.getProfessor();
             const professor_registro = professor.registro
