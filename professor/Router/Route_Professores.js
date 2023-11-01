@@ -89,30 +89,30 @@ module.exports = function (app, banco) {
       }
       else {
         //o else só deve ser executado se todas as validações forem feitas
-        const Professores = new Professores(banco);
+        const professores = new Professores(banco);
 
-        Professores.setRegistro(matricula)
-        Professores.setNome(nome);
-        Professores.setEmail(email);
-        Professores.setSenha(senha);
-        Professores.setTipo(tipo);
+        professores.setRegistro(registro)
+        professores.setNome(nome);
+        professores.setEmail(email);
+        professores.setSenha(senha);
+        professores.setTipo(tipo);
         //outro modo de get e set, modo mais antigo...
 
         //chama o método create da classe Professores...
         //esse método executa uma instrução sql no banco.
         //then then() é executado se alunos.create() retorna um resolve do promise
         //caso contrário é executado um reject e cai no catch()
-        Professores.create().then((resultadosBanco) => {
+        professores.create().then((resultadosBanco) => {
           //monta um objeto json de resposta com os dados do novo funcionário cadastrado
           const resposta = {
             status: true,
             msg: 'Executado com sucesso',
             codigo: '002',
             dados: {
-              matricula: resultadosBanco.matricula,
-              nome: alunos.getNome(),
-              email: alunos.getEmail(),
-              wpp: alunos.getTipo()
+              registro: resultadosBanco.registro,
+              nome: professores.getNome(),
+              email: professores.getEmail(),
+              tipo: professores.getTipo()
             }
           }
           response.status(200).send(resposta);
@@ -156,14 +156,14 @@ module.exports = function (app, banco) {
 
       //é criado um objeto de funcionario..
       //para o objeto é passado o pool de conexoes com o banco
-      const Professores = new Professores(banco);
+      const professores = new Professores(banco);
 
 
       //chama o método read() da classe Funcionario...
       //esse método executa uma instrução sql no banco.
       //then then() é executado se funcionario.read() retorna um resolve da promise
       //caso contrário é executado um reject e cai no catch()
-      Professores.read().then((resultadosBanco) => {
+      professores.read().then((resultadosBanco) => {
 
         const resposta = {
           status: true,
@@ -225,10 +225,10 @@ module.exports = function (app, banco) {
 
       const registro = request.params.id;
 
-      const Professores = new Porfessores(banco);
+      const professores = new Professores(banco);
 
-      Professores.setRegistro(registro);
-      Professores.read(registro).then((resultadosBanco) => {
+      professores.setRegistro(registro);
+      professores.read(registro).then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'executado com sucesso',
@@ -274,7 +274,7 @@ module.exports = function (app, banco) {
 
     
     if (validarToken.status == true) {
-      const registro = request.body.registro
+      const registro = request.params.id
       const nome = request.body.nome
       const email = request.body.email
       const senha = request.body.senha
@@ -333,24 +333,25 @@ module.exports = function (app, banco) {
        
         response.status(200).send(resposta)
       }else {
-        const Professores = new Professores(banco)
+        const professores = new Professores(banco)
 
-        Professores.setMatricula(matricula)
-        Professores.setNome(nome)
-        Professores.setEmail(email)
-        Professores.setWpp(wpp)
-        Professores.setSenha(senha)
+        professores.setRegistro(registro)
+        professores.setNome(nome)
+        professores.setEmail(email)
+        professores.setSenha(senha)
+        professores.setTipo(tipo)
 
-        Professores.update().then((resultadosBanco) => {
+        professores.update().then((resultadosBanco) => {
           const resposta = {
             status: true,
             msg: 'Executado com sucesso',
             codigo: '007',
             dados: {
-              matricula: Professores.getMatricula(),
-              nome: Professores.getNome(),
-              email: Professores.getEmail(),
+              registro: resultadosBanco.registro,
+              nome: professores.getNome(),
+              email: professores.getEmail(),
               tipo: professores.getTipo(),
+              senha: professores.getSenha(),
               
             },
           }
@@ -362,6 +363,7 @@ module.exports = function (app, banco) {
             codigo: '010',
             dados: erro,
           }
+          console.log(erro)
           response.status(200).send(resposta);
         });;
       }
@@ -380,9 +382,9 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.delete('/professores/aluno/:id', (request, response) => {
+  app.delete('/professores/professores/:id', (request, response) => {
 
-    console.log("rota: DELETE: /professores/aluno/:id");
+    console.log("rota: DELETE: /professores/professores/:id");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
@@ -402,18 +404,18 @@ module.exports = function (app, banco) {
       //recupera o id que foi enviado na uri.
       //perceba que quando é enviado pelo uri é necessário
       //utilizar o  (request.params) e não o (request.body)
-      const id = request.params.id; // é params.id pq na rota foi definido (:id)
+      const registro = request.params.id; // é params.id pq na rota foi definido (:id)
 
-      const alunos = new Alunos(banco);
-      alunos.setMatricula(id);
+      const professores = new Professores(banco);
+      professores.setRegistro(registro);
 
-      alunos.delete().then((resultadosBanco) => {
+      professores.delete().then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'Excluido com sucesso',
           codigo: '008',
           dados: {
-            matricula: alunos.getMatricula(),
+            registro: resultadosBanco.registro,
           },
         }
         response.status(200).send(resposta);

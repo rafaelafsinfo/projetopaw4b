@@ -6,6 +6,9 @@ const Route_Alunos = require("./professor/Router/Route_Alunos")
 const Route_Disciplina = require("./professor/Router/Route_Disciplinas")
 const Route_Historico = require("./professor/Router/Route_Historico")
 const Route_Notas = require("./professor/Router/Route_Notas")
+const Route_Professores = require("./professor/Router/Route_Professores")
+const Route_Revisao = require("./professor/Router/Route_Revisao")
+const Route_Turmas = require("./professor/Router/Route_Turmas")
 
 const app = express()
 
@@ -25,6 +28,9 @@ Route_Alunos(app,banco)
 Route_Disciplina(app,banco)
 Route_Historico(app,banco)
 Route_Notas(app,banco)
+Route_Professores(app,banco)
+Route_Revisao(app,banco)
+Route_Turmas(app,banco)
 
 app.get("/loginaluno",function(request,response){
   response.sendFile(__dirname+'/login/View/Login_Aluno.html')

@@ -3,17 +3,17 @@
 // de rotas_funcionarios no arquivo app.js
 module.exports = function (app, banco) {
 
-  const Alunos = require("../Model/Alunos");
+  const Revisao = require("../Model/Revisao");
   const JwtToken = require('../../login/Model/JwtToken');
   
   /*************************************************************************************************************************** */
   //create
-  app.post('/professores/aluno', (request, response) => {
+  app.post('/professores/revisao', (request, response) => {
 
 
     //imprime no console do terminal
     //útil para debug
-    console.log("rota => POST: /professor/aluno");
+    console.log("rota => POST: /professor/revisao");
 
     const dadosAutorizacao = request.headers.authorization;
     
@@ -23,18 +23,17 @@ module.exports = function (app, banco) {
     
     if (validarToken.status == true) {
 
-      const matricula = request.body.matricula
-      const nome = request.body.nome
-      const email = request.body.email
-      const wpp = request.body.wpp
-      const senha = request.body.senha
+      const idPedidoRevisao = request.body.idPedidoRevisao
+      const Nota_idNota = request.body.Nota_idNota
+      const descricao = request.body.descricao
+      const status = request.body.status
 
       
-      if (nome == "") {
+      if (idPedidoRevisao == null) {
         
         const resposta = {
           status: true,
-          msg: 'o nome não pode ser vazio',
+          msg: 'o idPedidoRevisao não pode ser vazio',
           codigo: '001',
           dados: "{}",
           //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
@@ -42,10 +41,10 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta);
-      } else if (email == "") {
+      } else if (Nota_idNota == null) {
         const resposta = {
           status: true,
-          msg: 'o email não pode ser vazio',
+          msg: 'o Nota_idNota não pode ser vazio',
           codigo: '001',
           dados: "{}",
           //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
@@ -53,10 +52,10 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if  (matricula == null) {
+      } else if  (descricao == "") {
         const resposta = {
           status: true,
-          msg: 'o matricula não pode ser vazio',
+          msg: 'o descricao não pode ser vazio',
           codigo: '001',
           dados: "{}",
           //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
@@ -64,10 +63,10 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if (wpp == null){
+      } else if (status == null){
         const resposta = {
           status: true,
-          msg: 'o wpp não pode ser vazio',
+          msg: 'o status não pode ser vazio',
           codigo: '001',
           dados: "{}",
           //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
@@ -75,45 +74,33 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if (senha == ""){
-        const resposta = {
-          status: true,
-          msg: 'o nome não pode ser vazio',
-          codigo: '001',
-          dados: "{}",
-          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
-      }
+      } 
       else {
         //o else só deve ser executado se todas as validações forem feitas
-        const alunos = new Alunos(banco);
+        const revisao = new Revisao(banco);
 
-        alunos.setMatricula(matricula)
-        alunos.setNome(nome);
-        alunos.setEmail(email);
-        alunos.setWpp(wpp)
-        alunos.setSenha(senha);
+        revisao.setIdPedidoRevisao(idPedidoRevisao)
+        revisao.setNota(Nota_idNota);
+        revisao.setDescricao(descricao);
+        revisao.setStatus(status)
 
         //outro modo de get e set, modo mais antigo...
 
-        //chama o método create da classe alunos...
+        //chama o método create da classe revisao...
         //esse método executa uma instrução sql no banco.
-        //then then() é executado se alunos.create() retorna um resolve do promise
+        //then then() é executado se revisao.create() retorna um resolve do promise
         //caso contrário é executado um reject e cai no catch()
-        alunos.create().then((resultadosBanco) => {
+        revisao.create().then((resultadosBanco) => {
           //monta um objeto json de resposta com os dados do novo funcionário cadastrado
           const resposta = {
             status: true,
             msg: 'Executado com sucesso',
             codigo: '002',
             dados: {
-              matricula: resultadosBanco.matricula,
-              nome: alunos.getNome(),
-              email: alunos.getEmail(),
-              wpp: alunos.getWpp()
+              idPedidoRevisao: resultadosBanco.idPedidoRevisao,
+              nome: revisao.getNota(),
+              descricao: revisao.getDescricao(),
+              status: revisao.getStatus()
             }
           }
           response.status(200).send(resposta);
@@ -136,8 +123,8 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.get('/professores/aluno', function (request, response) {
-    console.log("rota: GET: /professores/aluno");
+  app.get('/professores/revisao', function (request, response) {
+    console.log("rota: GET: /professores/revisao");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
@@ -157,14 +144,14 @@ module.exports = function (app, banco) {
 
       //é criado um objeto de funcionario..
       //para o objeto é passado o pool de conexoes com o banco
-      const alunos = new Alunos(banco);
+      const revisao = new Revisao(banco);
 
 
       //chama o método read() da classe Funcionario...
       //esse método executa uma instrução sql no banco.
       //then then() é executado se funcionario.read() retorna um resolve da promise
       //caso contrário é executado um reject e cai no catch()
-      alunos.read().then((resultadosBanco) => {
+      revisao.read().then((resultadosBanco) => {
 
         const resposta = {
           status: true,
@@ -204,9 +191,9 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.get('/professores/aluno/:id', (request, response) => {
+  app.get('/professores/revisao/:id', (request, response) => {
 
-    console.log("GET: /professores/aluno:id");
+    console.log("GET: /professores/revisao:id");
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
     //cria um objeto da classe JwtToken
@@ -224,12 +211,12 @@ module.exports = function (app, banco) {
       //perceba que quando é enviado pelo uri é necessário
       //utilizar o  (request.params) e não o (request.body)
 
-      const matricula = request.params.id;
+      const id = request.params.id;
 
-      const alunos = new Alunos(banco);
+      const revisao = new Revisao(banco);
 
-      alunos.setMatricula(matricula);
-      alunos.read(matricula).then((resultadosBanco) => {
+      revisao.setIdPedidoRevisao(id);
+      revisao.read(id).then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'executado com sucesso',
@@ -262,8 +249,8 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.put('/professores/aluno/:id', (request, response) => {
-    console.log("rota: PUT: /professores/aluno");
+  app.put('/professores/revisao/:id', (request, response) => {
+    console.log("rota: PUT: /professores/revisao");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
@@ -275,83 +262,77 @@ module.exports = function (app, banco) {
 
     
     if (validarToken.status == true) {
-      const matricula = request.body.matricula
-      const nome = request.body.nome
-      const email = request.body.email
-      const wpp = request.body.wpp
-      const senha = request.body.senha
+      const idPedidoRevisao = request.params.id
+      const Nota_idNota = request.body.Nota_idNota
+      const descricao = request.body.descricao
+      const status = request.body.status
 
-      //antes de cadastrar um novo funcionário valide todos os dados de entrada:
-      //caso o nome seja vazio
-      if (nome == "") {
-        //cria um objeto json de resposta.
+      
+      if (idPedidoRevisao == null) {
+        
         const resposta = {
           status: true,
-          msg: 'o nome não pode ser vazio',
+          msg: 'o idPedidoRevisao não pode ser vazio',
           codigo: '001',
-          dados: "{}"
+          dados: "{}",
+          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta);
-      } else if (email == "") {
+      } else if (Nota_idNota == null) {
         const resposta = {
           status: true,
-          msg: 'o email não pode ser vazio',
+          msg: 'o Nota_idNota não pode ser vazio',
           codigo: '001',
-          dados: "{}"
+          dados: "{}",
+          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if  (matricula == null) {
+      } else if  (descricao == "") {
         const resposta = {
           status: true,
-          msg: 'o matricula não pode ser vazio',
+          msg: 'o descricao não pode ser vazio',
           codigo: '001',
-          dados: "{}"
+          dados: "{}",
+          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if (wpp == null){
+      } else if (status == null){
         const resposta = {
           status: true,
-          msg: 'o wpp não pode ser vazio',
+          msg: 'o status não pode ser vazio',
           codigo: '001',
-          dados: "{}"
+          dados: "{}",
+          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
         }
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta)
-      } else if (senha == ""){
-        const resposta = {
-          status: true,
-          msg: 'a senha não pode ser vazia',
-          codigo: '001',
-          dados: "{}"
-        }
-       
-        response.status(200).send(resposta)
-      }else {
-        const alunos = new Alunos(banco)
+      } 
+      else {
+        //o else só deve ser executado se todas as validações forem feitas
+        const revisao = new Revisao(banco);
 
-        alunos.setMatricula(matricula)
-        alunos.setNome(nome)
-        alunos.setEmail(email)
-        alunos.setWpp(wpp)
-        alunos.setSenha(senha)
+        revisao.setIdPedidoRevisao(idPedidoRevisao)
+        revisao.setNota(Nota_idNota);
+        revisao.setDescricao(descricao);
+        revisao.setStatus(status)
 
-        alunos.update().then((resultadosBanco) => {
+        revisao.update().then((resultadosBanco) => {
           const resposta = {
             status: true,
             msg: 'Executado com sucesso',
             codigo: '007',
             dados: {
-              matricula: alunos.getMatricula(),
-              nome: alunos.getNome(),
-              email: alunos.getEmail(),
-              wpp: alunos.getWpp(),
+              idPedidoRevisao: resultadosBanco.idPedidoRevisao,
+              nome: revisao.getNota(),
+              descricao: revisao.getDescricao(),
+              status: revisao.getStatus()
               
             },
           }
@@ -381,9 +362,9 @@ module.exports = function (app, banco) {
     }
   });
 
-  app.delete('/professores/aluno/:id', (request, response) => {
+  app.delete('/professores/revisao/:id', (request, response) => {
 
-    console.log("rota: DELETE: /professores/aluno/:id");
+    console.log("rota: DELETE: /professores/revisao/:id");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
@@ -403,18 +384,18 @@ module.exports = function (app, banco) {
       //recupera o id que foi enviado na uri.
       //perceba que quando é enviado pelo uri é necessário
       //utilizar o  (request.params) e não o (request.body)
-      const id = request.params.id; // é params.id pq na rota foi definido (:id)
+      const id = request.params.id;
+      
+      const revisao = new Revisao(banco);
+      revisao.setIdPedidoRevisao(id);
 
-      const alunos = new Alunos(banco);
-      alunos.setMatricula(id);
-
-      alunos.delete().then((resultadosBanco) => {
+      revisao.delete().then((resultadosBanco) => {
         const resposta = {
           status: true,
           msg: 'Excluido com sucesso',
           codigo: '008',
           dados: {
-            matricula: alunos.getMatricula(),
+            idPedido: resultadosBanco.idPedidoRevisao,
           },
         }
         response.status(200).send(resposta);

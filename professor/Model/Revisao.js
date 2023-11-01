@@ -81,7 +81,7 @@ module.exports = class Revisao {
             //se veio da GET:/funcionarios  => não foi inserido id, portanto é nulo
             //se veio da GET:/funcionarios/:id  => foi inserido id, id é equivalente ao valor que veio na uri
 
-            const id = this.getMatricula();
+            const id = this.getIdPedidoRevisao();
 
             //o id é passado como nulo ou como o id que veio na uri.
             let params = [id];
@@ -183,7 +183,7 @@ module.exports = class Revisao {
             let parametros = [idPedidoRevisao];
 
             //cria a instrução sql que será executada
-            let sql = "delete from professor where idPedidoRevisao = ?";
+            let sql = "delete from pedidorevisao where idPedidoRevisao = ?";
             //substitui os sinais de ? pelos parametros e executa a instrução no sgbd
             this._banco.query(sql, parametros, function (error, result) {
                 if (error) {
