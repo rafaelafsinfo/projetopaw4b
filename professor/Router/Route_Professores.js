@@ -227,7 +227,7 @@ module.exports = function (app, banco) {
 
       const Professores = new Porfessores(banco);
 
-      Professores.setMatricula(registro);
+      Professores.setRegistro(registro);
       Professores.read(registro).then((resultadosBanco) => {
         const resposta = {
           status: true,
