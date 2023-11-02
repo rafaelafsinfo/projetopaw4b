@@ -4,19 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="login/View/Css/Login.css">
 </head>
 <body>
-
-    <div id="divFormulario">
-        <div id="divResposta"></div>
-        <div>Registro:<input type="number" id="nbrRegistro"></div>
-        <div>senha:<input type="password" id="txtSenha"></div>
-    </div>
-    <div id="divBotaoComando">
-        <button id="btnLogin">Login</button>
-    
-    </div>
-    
+    <section class="main-login">
+        <div>
+            <img src="login/View/Img/Professor.svg" alt="" class="image-login">
+        </div>
+        <form class="rigth-login" id="divFormulario">
+            <div class="card-login">
+                <div class="textfield">
+                    <label>registro:</label>
+                    <input class="input" type="number" id="nbrRegistro">
+                </div>
+                <div class="textfield">
+                    <label>senha:</label>
+                    <input class="input" type="password" id="txtSenha">
+                </div>
+            </div>
+            <div>
+                <button class="btn-login" id="btnLogin">Login</button>
+            </div>
+        </form>
+        
+    </section>
 </body>
-<script type="text/javascript" src = "./Js/Login_professor.js"></script>
+<script src="login/View/Js/Login_Professor.js"></script>
 </html>

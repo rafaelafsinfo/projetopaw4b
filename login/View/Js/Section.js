@@ -1,4 +1,3 @@
-
 function existeSessao(){
                 
     let token = localStorage.getItem("token");
