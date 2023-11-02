@@ -41,7 +41,7 @@ export default class Servidor  {
     this._app.use("/",roteadorNotas.getRotasNotas());
     this._app.use("/",roteadorRevisao.getRotaRevisao())
     this._app.get("/index",function(request,response){
-      response.sendFile("/Public/Index.html",{root: __dirname})
+      response.sendFile(__dirname+"alunos/Src/Public/Index.html")
     })
   }
   

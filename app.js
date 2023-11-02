@@ -33,7 +33,10 @@ Route_Revisao(app,banco)
 Route_Turmas(app,banco)
 
 app.get("/loginaluno",function(request,response){
-  response.sendFile(__dirname+'/login/View/Login_Aluno.html')
+  response.sendFile(__dirname+'/')
+})
+app.get("/loginprofessor",function(request,response){
+  response.sendFile(__dirname+'/login/View/Login_Professor.html')
 })
 
 app.listen(3000, function () {

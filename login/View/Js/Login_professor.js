@@ -19,7 +19,7 @@ function onclick_btnLogin(){
 function fetch_post_verificarLogin(objJson){
     //console.log(objJson)
     const stringJson = JSON.stringify(objJson);
-    const uri = "/login/";
+    const uri = "http://localhost:3000/login/professor";
     fetch(uri, {
         method: "post",
         body: stringJson,
@@ -41,7 +41,7 @@ function fetch_post_verificarLogin(objJson){
             localStorage.setItem("token",objetoJson.token);
 			localStorage.setItem("jsonFuncionario",stringJsonFuncionario);
 
-            window.location="PainelAdm.html"
+            window.location="http://localhost:3000/professor"
         }else{
             divResposta.appendChild(document.createTextNode(objetoJson.msg))
         }
