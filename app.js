@@ -39,6 +39,27 @@ app.get("/loginaluno",function(request,response){
 app.get("/loginprofessor",function(request,response){
   response.sendFile(__dirname+'/login/View/Login_Professor.html')
 })
+app.get("/professorAluno",function(request,response){
+  response.sendFile(__dirname+'/professor/View/Alunos.html')
+})
+app.get("/professorDisciplina",function(request,response){
+  response.sendFile(__dirname+'/professor/View/Disciplinas.html')
+})
+app.get("/professorHistorico",function(request,response){
+  response.sendFile(__dirname+'/professor/View/Historico.html')
+})
+app.get("/professorNota",function(request,response){
+  response.sendFile(__dirname+'/professor/View/Notas.html')
+})
+app.get("/professorProf",function(request,response){
+  response.sendFile(__dirname+'/professor/View/Professores.html')
+})
+app.get("/professorRevisao",function(request,response){
+  response.sendFile(__dirname+'/professor/View/Revisao.html')
+})
+app.get("/professorTurma",function(request,response){
+  response.sendFile(__dirname+'/professor/View/Turmas.html')
+})
 
 app.listen(3000, function () {
   console.log('Servidor Ativo na porta: ' + 3000 + '!')

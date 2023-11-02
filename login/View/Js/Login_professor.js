@@ -36,12 +36,12 @@ const divResposta = document.getElementById("divResposta");
             const objetoJson = JSON.parse(jsonResposta);
             //alert(objetoJson.token);
             if(objetoJson.status==true){
-                let stringJsonFuncionario = JSON.stringify(objetoJson.funcionario);
+                let stringJsonProfessor = JSON.stringify(objetoJson.professor);
                 
                 localStorage.setItem("token",objetoJson.token);
-                localStorage.setItem("jsonFuncionario",stringJsonFuncionario);
+                localStorage.setItem("jsonProfessor",stringJsonProfessor);
 
-                window.location="http://localhost:3000/professor"
+                window.location="http://localhost:3000/professorAluno"
             }else{
                 divResposta.appendChild(document.createTextNode(objetoJson.msg))
             }
