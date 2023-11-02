@@ -1,5 +1,6 @@
 import Express, { Application } from "express";
-
+import HistoricoRoteador from "./Router/Route_Historico";
+import NotasRoteador from "./Router/Route_Notas";
 
 export default class Servidor  {
   //todos os atributos da classe servidor devem ser privados
@@ -29,11 +30,11 @@ export default class Servidor  {
   }
   private iniciarRotas():void {
 
-    /*let roteadorCargos = new CargoRoteador();
-    let roteadorFuncionarios = new FuncionarioRoteador();
+    let roteadorHistorico = new HistoricoRoteador();
+    let roteadorNotas = new NotasRoteador();
    
-    this._app.use("/", roteadorCargos.getRotasCargo());
-    this._app.use("/",roteadorFuncionarios.getRotasFuncionario());*/
+    this._app.use("/", roteadorHistorico.getRotasHistorico());
+    this._app.use("/",roteadorNotas.getRotasNotas());
 
   }
 

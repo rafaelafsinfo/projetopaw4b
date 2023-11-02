@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const Route_Historico_1 = __importDefault(require("./Router/Route_Historico"));
+const Route_Notas_1 = __importDefault(require("./Router/Route_Notas"));
 class Servidor {
     constructor() {
         //todos os atributos da classe servidor devem ser privados
@@ -24,11 +26,10 @@ class Servidor {
         this.iniciarServico();
     }
     iniciarRotas() {
-        /*let roteadorCargos = new CargoRoteador();
-        let roteadorFuncionarios = new FuncionarioRoteador();
-       
-        this._app.use("/", roteadorCargos.getRotasCargo());
-        this._app.use("/",roteadorFuncionarios.getRotasFuncionario());*/
+        let roteadorHistorico = new Route_Historico_1.default();
+        let roteadorNotas = new Route_Notas_1.default();
+        this._app.use("/", roteadorHistorico.getRotasHistorico());
+        this._app.use("/", roteadorNotas.getRotasNotas());
     }
     iniciarServico() {
         this._app.listen(this._porta, this._host, () => {
