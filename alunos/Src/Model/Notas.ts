@@ -15,21 +15,23 @@ export default class Notas {
 
         return new Promise<Mysql.RowDataPacket[]>((resolve, reject) => {
         
-            const PARAMETROS = ['_Aluno_matricula'];
-            const SQL = "SELECT * FROM nota where Aluno_Matricula = ?";
+            const matricula = this._Aluno_matricula
+
+            const PARAMETROS = [matricula];
+            const SQL = "SELECT * FROM nota where Aluno_matricula = ?";
             
             Banco.getConexao().query<Mysql.RowDataPacket[]>(SQL, PARAMETROS).then(([linhasBanco, fields]) => {
-                resolve(linhasBanco)
+                resolve(linhasBanco);
             }).catch((erro) => {
                 reject(erro);
             });
         });
     }
-    public get matricula_aluna():number {
+    public get Aluno_matricula():number {
     return this._Aluno_matricula;
     }
 
-    public set matricula_aluno(id: number) {
+    public set Aluno_matricula(id: number) {
         this._Aluno_matricula = id;
     }    
 }

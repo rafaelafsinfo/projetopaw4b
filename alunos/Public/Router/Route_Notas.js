@@ -7,7 +7,7 @@ class NotasRoteador {
         this._roteador = (0, express_1.Router)();
     }
     getRotasNotas() {
-        this._roteador.get("/aluno/notas", Control_read_1.controle_read);
+        this._roteador.get("/notas/:id", Control_read_1.controle_read);
         return this._roteador;
     }
 }

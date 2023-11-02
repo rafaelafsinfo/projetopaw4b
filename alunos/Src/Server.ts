@@ -1,6 +1,7 @@
 import Express, { Application } from "express";
 import HistoricoRoteador from "./Router/Route_Historico";
 import NotasRoteador from "./Router/Route_Notas";
+import RevisaoRoteador from "./Router/Route_Revisao";
 
 export default class Servidor  {
   //todos os atributos da classe servidor devem ser privados
@@ -19,6 +20,7 @@ export default class Servidor  {
     this._app.use(Express.urlencoded({ extended: true }));
     //use a rota localhost:3000/ como se fosse localhost:3000/public 
     this._app.use('/', Express.static(__dirname + '/public'));
+    this._app.use('/Src/Public', Express.static(__dirname + '/Src/Public'))
 
 
     
@@ -32,12 +34,17 @@ export default class Servidor  {
 
     let roteadorHistorico = new HistoricoRoteador();
     let roteadorNotas = new NotasRoteador();
+    let roteadorRevisao = new RevisaoRoteador();
    
     this._app.use("/", roteadorHistorico.getRotasHistorico());
     this._app.use("/",roteadorNotas.getRotasNotas());
-
+    this._app.use("/",roteadorNotas.getRotasNotas());
+    this._app.use("/",roteadorRevisao.getRotaRevisao())
+    this._app.get("/index",function(request,response){
+      response.sendFile("/Public/Index.html",{root: __dirname})
+    })
   }
-
+  
  
   private iniciarServico():void {
     

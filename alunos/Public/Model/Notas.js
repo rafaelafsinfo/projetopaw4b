@@ -20,8 +20,9 @@ class Notas {
     read() {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                const PARAMETROS = ['_Aluno_matricula'];
-                const SQL = "SELECT * FROM nota where Aluno_Matricula = ?";
+                const matricula = this._Aluno_matricula;
+                const PARAMETROS = [matricula];
+                const SQL = "SELECT * FROM nota where Aluno_matricula = ?";
                 Banco_1.default.getConexao().query(SQL, PARAMETROS).then(([linhasBanco, fields]) => {
                     resolve(linhasBanco);
                 }).catch((erro) => {
@@ -30,10 +31,10 @@ class Notas {
             });
         });
     }
-    get matricula_aluna() {
+    get Aluno_matricula() {
         return this._Aluno_matricula;
     }
-    set matricula_aluno(id) {
+    set Aluno_matricula(id) {
         this._Aluno_matricula = id;
     }
 }

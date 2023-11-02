@@ -17,8 +17,7 @@ export default class Historico {
             const SQL = "SELECT * FROM historicoalteracoes";
             
             Banco.getConexao().query<Mysql.RowDataPacket[]>(SQL, PARAMETROS).then(([linhasBanco, fields]) => {
-                
-                resolve(linhasBanco)
+                resolve(linhasBanco);
             }).catch((erro) => {
                 reject(erro);
             });

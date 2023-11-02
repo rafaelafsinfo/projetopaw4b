@@ -1,13 +1,13 @@
 const divResposta = document.getElementById("divResposta");
 const btnLogin = document.getElementById("btnLogin");
-const nrbMatricula = document.getElementById("nrbMatricula");
+const nbrMatricula = document.getElementById("nbrMatricula");
 const txtSenha = document.getElementById("txtSenha");
 
 btnLogin.onclick = onclick_btnLogin;
 
 function onclick_btnLogin(){
 
-    const v_matricula = nrbMatricula.value;
+    const v_matricula = nbrMatricula.value;
     const v_senha = txtSenha.value;
     const objJson = {
         email:v_matricula,
@@ -41,7 +41,7 @@ function fetch_post_verificarLogin(objJson){
             localStorage.setItem("token",objetoJson.token);
 			localStorage.setItem("jsonFuncionario",stringJsonFuncionario);
 
-            window.location="localhost:3001/aluno"
+            window.location="C:/programação/Projetos/projetopaw4b/alunos/Src/Public/Index.html"
         }else{
             divResposta.appendChild(document.createTextNode(objetoJson.msg))
         }

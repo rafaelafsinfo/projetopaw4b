@@ -11,7 +11,7 @@ export default
 
   public getRotasNotas(): Router {
     
-    this._roteador.get("/notas", controle_read);
+    this._roteador.get("/notas/:id", controle_read);
     
 
     return this._roteador;

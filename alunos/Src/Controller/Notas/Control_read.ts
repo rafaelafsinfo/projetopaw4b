@@ -1,30 +1,50 @@
 import { Request, Response } from "express";
 import Notas from "../../Model/Notas";
+import JwtToken from "../../Model/JwtToken";
 
 export function controle_read(request: Request, response: Response) {
-    
-    const notas = new Notas();
+    const dadosAutorizacao = request.headers.authorization;
+    if (dadosAutorizacao !== undefined) {
+   
+    const jwt = new JwtToken();
+    const validacao:any = jwt.validarToken(dadosAutorizacao);
 
-    notas.read().then(value => {
-           const resposta = {
-            status: true,
-            msg: 'executado com sucesso',
-            codigo: '201',
-            dados: value
-        };
+    if (validacao.status == true) {
 
-        return response.status(201).json(resposta);
+        let id: number = parseInt(request.params.id);
 
-    }).catch(erro => {
-        console.log(erro);
+        const notas = new Notas();
+        notas.Aluno_matricula = id
+        notas.read().then(value => {
+            const resposta = {
+                status: true,
+                msg: 'executado com sucesso',
+                codigo: '201',
+                dados: value
+            };
+
+            return response.status(201).json(resposta);
+
+        }).catch(erro => {
+            console.log(erro);
+            const resposta = {
+                status: true,
+                msg: 'erro ao cadastrar',
+                codigo: '200',
+                dados: erro
+            };
+            return response.status(200).send(resposta);
+        });
+    }else{
         const resposta = {
-            status: true,
-            msg: 'erro ao cadastrar',
-            codigo: '200',
-            dados: erro
+          status: true,
+          msg: 'Token Inválido',
+          codigo: '200',
+          dados: "erro"
         };
         return response.status(200).send(resposta);
-    });
+      }
 
 
+    }
 }

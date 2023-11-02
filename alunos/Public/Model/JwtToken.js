@@ -18,8 +18,8 @@ class JwtToken {
     stripToken(token) {
         let TokenArray = token.split(" ");
         token = TokenArray[1];
-        token = token.replace("<", "");
-        token = token.replace(">", "");
+        /*token = token.replace("<", "");
+        token = token.replace(">", "");*/
         return token;
     }
     validarToken(token) {

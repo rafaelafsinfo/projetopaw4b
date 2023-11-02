@@ -27,8 +27,8 @@ export default class JwtToken {
 
     let TokenArray = token.split(" ");
     token = TokenArray[1]
-    token = token.replace("<", "");
-    token = token.replace(">", "");
+    /*token = token.replace("<", "");
+    token = token.replace(">", "");*/
 
     return token;
   }

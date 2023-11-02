@@ -7,7 +7,7 @@ class HistoricoRoteador {
         this._roteador = (0, express_1.Router)();
     }
     getRotasHistorico() {
-        this._roteador.get("/aluno/historico", Control_read_1.controle_read);
+        this._roteador.get("/historico", Control_read_1.controle_read);
         return this._roteador;
     }
 }
