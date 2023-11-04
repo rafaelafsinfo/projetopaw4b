@@ -1,4 +1,3 @@
-//var md5 = require('md5'); 
 
 module.exports = class Professor {
 
@@ -9,9 +8,10 @@ module.exports = class Professor {
         
     }
     async login() {
+        const md5 = require('md5'); 
         const operacaoAssincrona = new Promise((resolve, reject) => {
             const registro = this.getRegistro();
-            const senha = this.getSenha() //md5(this.getSenha());
+            const senha = md5(this.getSenha());
             const parametros = [registro, senha];
             console.log(registro,senha)
 

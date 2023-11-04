@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="professor/View/Css/Professores.css">
-
+    <link rel="stylesheet" type="text/css" href="professor/View/Css/Alunos.css">
     <title>Document</title>
 </head>
 <body>
@@ -14,12 +13,39 @@
             <li><a href="/professorDisciplina">Disciplinas</a></li>
             <li><a href="/professorHistorico">Historico</a></li>
             <li><a href="/professorNota">Notas</a></li>
-            <li><a href="/professorProf">Pofessores</a></li>
+            <li><a href="/professorprof">Pofessores</a></li>
             <li><a href="/professorRevisao">Revisao</a></li>
             <li><a href="/professorTurma">Turma</a></li>
         </ul>
-        
     </nav>
-    <h1>Professores</h1>
+    <section>
+        <div id="divResposta"></div>
+        <div id="divFormulario">
+        
+            <div>matricula: <input type="number" id="txtRegistro"></div>
+            <div>nome:<input type="text" id="txtNome"></div>
+            <div>e-mail:<input type="text" id="txtEmail"></div>
+            <div>Wpp:<input type="number" id="txtTipo"></div>
+            <div>senha:<input type="password" id="txtSenha"></div>
+
+        </div>
+        <div id="divBotaoComando">
+        <button id="btnNew">NOVO</button>
+        <button id="btnCreate">CADASTRAR</button>
+        <button id="btnUpdate">ATUALIZAR</button>
+        <button id="btnCancelar">CANCELAR</button>
+        
+        </div>
+        <div id="divProfessores">
+            <table id="tblProfessores">
+                <th>registro</th>
+                <th>nome</th>
+                <th>email</th>
+                <th>tipo</th>
+                <th>Excluir</th>
+            </table>
+        </div>
+    </section>
 </body>
+<script src="professor/View/JS/Professores.js"></script>
 </html>

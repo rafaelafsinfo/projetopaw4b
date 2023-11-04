@@ -42,17 +42,6 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta);
-      } else if (idTurma == null) {
-        const resposta = {
-          status: true,
-          msg: 'o idTurma não pode ser vazio',
-          codigo: '001',
-          dados: "{}",
-          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
       } else if  (abreviacao == "") {
         const resposta = {
           status: true,

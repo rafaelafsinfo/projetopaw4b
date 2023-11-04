@@ -34,19 +34,19 @@ const divResposta = document.getElementById("divResposta");
 
             console.log("RECEBIDO:", jsonResposta);
             const objetoJson = JSON.parse(jsonResposta);
-            //alert(objetoJson.token);
+            alert(objetoJson.token);
             if(objetoJson.status==true){
-                let stringJsonAluno = JSON.stringify(objetoJson.aluno);
-                
+                let stringJsonAluno = JSON.stringify(objetoJson.Aluno);
                 localStorage.setItem("token",objetoJson.token);
                 localStorage.setItem("jsonAluno",stringJsonAluno);
-
-                window.location="http://localhost:5000/aluno"
+                alert(`http://localhost:5000/alunosnotas/${objetoJson.token}/${nbrMatricula.value}`)
+                window.location= `http://localhost:5000/alunosnotas/${objetoJson.token}/${nbrMatricula.value}`
             }else{
                 divResposta.appendChild(document.createTextNode(objetoJson.msg))
             }
             
         }).catch((error) => {
+            alert(error)
             console.error("Error:", error);
         });      
     }

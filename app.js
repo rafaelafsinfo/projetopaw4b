@@ -33,6 +33,9 @@ Route_Professores(app,banco)
 Route_Revisao(app,banco)
 Route_Turmas(app,banco)
 
+app.get("/login",function(request,response){
+  response.sendFile(__dirname+'/login/View/Index.html')
+})
 app.get("/loginaluno",function(request,response){
   response.sendFile(__dirname+'/login/View/Login_Aluno.html')
 })

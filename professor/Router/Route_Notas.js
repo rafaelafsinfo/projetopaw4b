@@ -32,28 +32,7 @@ module.exports = function (app, banco) {
       const tipoNota = request.body.tipoNota
       const fezLista = request.body.fezLista
       
-      if (idNota == null) {
-        
-        const resposta = {
-          status: true,
-          msg: 'o idnota não pode ser vazio',
-          codigo: '001',
-          dados: "{}",
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta);
-      } else if (Disciplina_idDisciplina == null) {
-        const resposta = {
-          status: true,
-          msg: 'o IdDisciplina não pode ser vazio',
-          codigo: '001',
-          dados: "{}",
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
-      } else if  (Aluno_matricula == null) {
+      if  (Aluno_matricula == null) {
         const resposta = {
           status: true,
           msg: 'o Aluno_matricula não pode ser vazio',

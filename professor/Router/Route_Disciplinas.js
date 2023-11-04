@@ -36,17 +36,7 @@ module.exports = function (app, banco) {
         //envia a resposta para o cliente
         //http code = 200
         response.status(200).send(resposta);
-      } else if (idDisciplina == null) {
-        const resposta = {
-          status: true,
-          msg: 'o idDisciplina não pode ser vazio',
-          codigo: '001',
-          dados: "{}",
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta)
-      } else if  (Professor_registro == null) {
+      }else if  (Professor_registro == null) {
         const resposta = {
           status: true,
           msg: 'o Professor_registro não pode ser vazio',

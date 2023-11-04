@@ -10,7 +10,6 @@ module.exports = function (app, banco) {
   //create
   app.post('/professores/aluno', (request, response) => {
 
-
     //imprime no console do terminal
     //útil para debug
     console.log("rota => POST: /professor/aluno");
@@ -263,6 +262,7 @@ module.exports = function (app, banco) {
   });
 
   app.put('/professores/aluno/:id', (request, response) => {
+    const md5 = require('md5')
     console.log("rota: PUT: /professores/aluno");
 
     //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
@@ -279,7 +279,7 @@ module.exports = function (app, banco) {
       const nome = request.body.nome
       const email = request.body.email
       const wpp = request.body.wpp
-      const senha = request.body.senha
+      const senha = md5(request.body.senha)
 
       //antes de cadastrar um novo funcionário valide todos os dados de entrada:
       //caso o nome seja vazio

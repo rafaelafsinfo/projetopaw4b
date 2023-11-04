@@ -1,16 +1,13 @@
+const md5 = require("md5");
 
-//app e banco são recebidos quando fazemos a chamada
-// de rotas_funcionarios no arquivo app.js
 module.exports = function (app, banco) {
-
+  
   const Professores = require("../Model/Professores");
   const JwtToken = require('../../login/Model/JwtToken');
   
   /*************************************************************************************************************************** */
   //create
   app.post('/professores/professores', (request, response) => {
-
-
     //imprime no console do terminal
     //útil para debug
     console.log("rota => POST: /professor/aluno");

@@ -3,9 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../Public/CSS/Notas.css">
+
     <title>Document</title>
 </head>
 <body>
-    
+    <nav>
+        <ul class="menu">
+            <li><a href="/professorAluno">Aluno</a></li>
+            <li><a href="/professorDisciplina">Disciplinas</a></li>
+            <li><a href="/professorHistorico">Historico</a></li>
+            <li><a href="/professorNota">Notas</a></li>
+            <li><a href="/professorprof">Pofessores</a></li>
+            <li><a href="/professorRevisao">Revisao</a></li>
+            <li><a href="/professorTurma">Turma</a></li>
+        </ul>
+        
+    </nav>
+    <section>
+        <div id="divResposta"></div>
+        <div id="divFormulario">
+
+            <div id="divIdNota">idNota: <input type="number" id="txtIdNota"></div>
+            <div>IdDisciplina: <input type="number" id="txtIdDisciplina"></div>
+            <div>matricula: <input type="number" id="txtMatricula"></div>
+            <div>bimestre:<input type="number" id="txtBimestre"></div>
+            <div>Nota:<input type="number" id="txtNota"></div>
+            <div>ultima alteração:<input type="datetime-local" id="txtUltimaAlteracao"></div>
+            <div>tipo de Nota:
+            <select id="txtTipoNota">
+                <option value="1">projeto</option>
+                <option value="2">prova</option>
+            </select>
+            </div>
+            <div>Fez Lista:
+                <select id="txtFezLista">
+                    <option value="1">fez</option>
+                    <option value="2">não fez</option>
+                </select>
+            </div>
+
+        </div>
+        <div id="divBotaoComando">
+        <button id="btnNew">CADASTRAR</button>
+        <button id="btnNewUpdate">ATUALIZAR</button>
+        <button id="btnCreate">CADASTRAR</button>
+        <button id="btnUpdate">ATUALIZAR</button>
+        <button id="btnCancelar">CANCELAR</button>
+        
+        </div>
+        <div id="divNotas">
+            <table id="tblNotas">
+                <th>IdNota</th>
+                <th>IdDisciplina</th>
+                <th>Matricula</th>
+                <th>bimestre</th>
+                <th>Nota</th>
+                <th>txtUltimaAlteracao</th>
+                <th>tipoNota</th>
+                <th>FezLista</th>
+                <th>Excluir</th>
+            </table>
+        </div>
+    </section>
 </body>
+<script src="../../Public/JS/Notas.js"></script>
 </html>

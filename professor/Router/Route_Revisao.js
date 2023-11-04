@@ -29,19 +29,7 @@ module.exports = function (app, banco) {
       const status = request.body.status
 
       
-      if (idPedidoRevisao == null) {
-        
-        const resposta = {
-          status: true,
-          msg: 'o idPedidoRevisao não pode ser vazio',
-          codigo: '001',
-          dados: "{}",
-          //token: jwt.gerarToken(validarToken.dados.data) //como o token foi validado é gerado um novo token mais novo com os dados do cliente.
-        }
-        //envia a resposta para o cliente
-        //http code = 200
-        response.status(200).send(resposta);
-      } else if (Nota_idNota == null) {
+      if (Nota_idNota == null) {
         const resposta = {
           status: true,
           msg: 'o Nota_idNota não pode ser vazio',

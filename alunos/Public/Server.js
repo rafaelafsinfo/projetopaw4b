@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const path_1 = __importDefault(require("path"));
 const Route_Historico_1 = __importDefault(require("./Router/Route_Historico"));
 const Route_Notas_1 = __importDefault(require("./Router/Route_Notas"));
 const Route_Revisao_1 = __importDefault(require("./Router/Route_Revisao"));
@@ -22,7 +23,6 @@ class Servidor {
         this._app.use(express_1.default.urlencoded({ extended: true }));
         //use a rota localhost:3000/ como se fosse localhost:3000/public 
         this._app.use('/', express_1.default.static(__dirname + '/public'));
-        this._app.use('/Src/Public', express_1.default.static(__dirname + '/Src/Public'));
         //inincia as rotas
         this.iniciarRotas();
         this.iniciarServico();
@@ -35,8 +35,8 @@ class Servidor {
         this._app.use("/", roteadorNotas.getRotasNotas());
         this._app.use("/", roteadorNotas.getRotasNotas());
         this._app.use("/", roteadorRevisao.getRotaRevisao());
-        this._app.get("/index", function (request, response) {
-            response.sendFile(__dirname + "/index.html");
+        this._app.get("/alunosnotas", function (request, response) {
+            response.sendFile(path_1.default.join(__dirname, '..', 'Public', 'Notas.html'));
         });
     }
     iniciarServico() {

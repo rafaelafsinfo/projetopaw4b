@@ -1,4 +1,4 @@
-const md5 = require("md5");
+
 
 module.exports = class Alunos {
 
@@ -19,13 +19,13 @@ module.exports = class Alunos {
 
     async create() {
         
+        const md5 = require("md5");
         const operacaoAssincrona = new Promise((resolve, reject) => {
-           
             const matricula = this.getMatricula() 
             const nome = this.getNome();
             const email = this.getEmail();
             const wpp = this.getWpp();
-            const senha = this.getSenha();
+            const senha = md5(this.getSenha());
 
 
             const parametros = [matricula,nome, email,wpp,senha];
@@ -73,9 +73,9 @@ module.exports = class Alunos {
             //caso o id seja nulo entra no if e executa a primeira instrução sql
             //caso o id não seja nulo cai no else
             if (id == null) {
-                SQL = "SELECT matricula,nome,email,wpp FROM aluno ORDER BY nome,matricula";
+                SQL = "SELECT matricula,nome,email,wpp FROM aluno ORDER BY matricula";
             } if (id != null){
-                SQL = "SELECT matricula,nome,email,wpp FROM aluno where matricula=? ORDER BY nome,matricula ";
+                SQL = "SELECT matricula,nome,email,wpp FROM aluno where matricula=? ORDER BY matricula ";
             }
 
             //depois da substituição dos ? pelos dados a instrução sql é executada pelo método query
@@ -109,6 +109,7 @@ module.exports = class Alunos {
 
         //cria uma promise que retornará dados referentes a execução de 
         //uma instrução sql no banco.
+        const md5 = require('md5')
         const operacaoAssincrona = new Promise((resolve, reject) => {
 
 

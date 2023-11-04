@@ -179,11 +179,11 @@ module.exports = class Historico {
             //a inserção é feita no arquivo rotas_funcionario.js
             //A inserção é feita dentro da função que trata a rota DELETE:/funcionarios/:id
             const Nota = this.getidNota() 
-            const idNota = Nota.idNota
+            const idnota = Nota.idNota
             
 
             //cria o vetor com os parametros que serão substitudios pelos sinais de ?
-            let parametros = [idNota];
+            let parametros = [idnota];
 
             //cria a instrução sql que será executada
             let sql = "delete from historicoalteracoes where Nota_idNota = ?";

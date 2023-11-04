@@ -1,15 +1,7 @@
 import { Request, Response } from "express";
 import Notas from "../../Model/Notas";
-import JwtToken from "../../Model/JwtToken";
 
 export function controle_read(request: Request, response: Response) {
-    const dadosAutorizacao = request.headers.authorization;
-    if (dadosAutorizacao !== undefined) {
-   
-    const jwt = new JwtToken();
-    const validacao:any = jwt.validarToken(dadosAutorizacao);
-
-    if (validacao.status == true) {
 
         let id: number = parseInt(request.params.id);
 
@@ -35,16 +27,5 @@ export function controle_read(request: Request, response: Response) {
             };
             return response.status(200).send(resposta);
         });
-    }else{
-        const resposta = {
-          status: true,
-          msg: 'Token Inválido',
-          codigo: '200',
-          dados: "erro"
-        };
-        return response.status(200).send(resposta);
-      }
 
-
-    }
 }

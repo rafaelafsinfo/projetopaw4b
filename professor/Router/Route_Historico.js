@@ -287,25 +287,13 @@ module.exports = function (app, banco) {
 
     console.log("rota: DELETE: /professores/historico/:id");
 
-    //recupera o 'Bearer <' + TOKEN + '>' enviado pelo cliente
     const dadosAutorizacao = request.headers.authorization;
-    //cria um objeto da classe JwtToken
     const jwt = new JwtToken();
-
-    //verifica se o token enviado pelo cliente é válido
     const validarToken = jwt.validarToken(dadosAutorizacao);
-    //entra no if se a validação do token é verdadeira
-    //se a validação do token é verdadeira a propriedade validarToken.dados, 
-    //possui dados do cliente no formato: {"email":"","nome":"","idFuncionario":"","idCargo":"","nomeCargo":""}
-    //esses dados serão utilizados para gerar um novo token com a data de validade maior que a anterior.
-    //toda vez que o token do cliente é validado é gerado um novo token mais novo na resposta da requisicao.
     if (validarToken.status == true) {
-
-
-      //recupera o id que foi enviado na uri.
-      //perceba que quando é enviado pelo uri é necessário
-      //utilizar o  (request.params) e não o (request.body)
-      const id = request.params.id; // é params.id pq na rota foi definido (:id)
+      const id = {
+        "idNota": request.params.id
+      } // é params.id pq na rota foi definido (:id)
 
       const historico = new Historico(banco);
       historico.setidNota(id);

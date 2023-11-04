@@ -17,10 +17,8 @@ export default class Servidor  {
    
     this._app.use(Express.static('js'));
     this._app.use(Express.json());
-    this._app.use(Express.urlencoded({ extended: true }));
-    //use a rota localhost:3000/ como se fosse localhost:3000/public 
-    this._app.use('/', Express.static(__dirname + '/public'));
-    this._app.use('/Src/Public', Express.static(__dirname + '/Src/Public'))
+    this._app.use(Express.urlencoded({ extended: true })); 
+    this._app.use(Express.static(__dirname))
 
 
     
@@ -40,9 +38,7 @@ export default class Servidor  {
     this._app.use("/",roteadorNotas.getRotasNotas());
     this._app.use("/",roteadorNotas.getRotasNotas());
     this._app.use("/",roteadorRevisao.getRotaRevisao())
-    this._app.get("/index",function(request,response){
-      response.sendFile(__dirname+"alunos/Src/Public/Index.html")
-    })
+    
   }
   
  

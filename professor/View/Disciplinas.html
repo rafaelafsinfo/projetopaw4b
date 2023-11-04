@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="professor/View/Css/Disciplinas.css">
-
+    <link rel="stylesheet" type="text/css" href="professor/View/Css/Alunos.css">
     <title>Document</title>
 </head>
 <body>
@@ -14,12 +13,42 @@
             <li><a href="/professorDisciplina">Disciplinas</a></li>
             <li><a href="/professorHistorico">Historico</a></li>
             <li><a href="/professorNota">Notas</a></li>
-            <li><a href="/professor">Pofessores</a></li>
+            <li><a href="/professorprof">Pofessores</a></li>
             <li><a href="/professorRevisao">Revisao</a></li>
             <li><a href="/professorTurma">Turma</a></li>
         </ul>
-        
     </nav>
-    <h1>Disciplinas</h1>
+    <section>
+        <div id="divResposta"></div>
+        <div id="divFormulario">
+        
+            <div id="divIdDisciplina">idNota: <input type="number" id="txtIdNota"></div>
+            <div>IdDisciplina: <input type="number" id="txtIdDisciplina"></div>
+            <div>nome:<input type="text" id="txtNome"></div>
+            <div>Professor_registro:<input type="text" id="txtProfessor_registro"></div>
+            <div>Turma_idTurma:<input type="number" id="txtTurma_idTurma"></div>
+
+        </div>
+        <div id="divBotaoComando">
+        <button id="btnNew">CADASTRAR</button>
+        <button id="btnNewUpdate">ATUALIZAR</button>
+        <button id="btnCreate">CADASTRAR</button>
+        <button id="btnUpdate">ATUALIZAR</button>
+        <button id="btnCancelar">CANCELAR</button>
+        
+        </div>
+        <div id="divDisciplinas">
+            <table id="tblDisciplinas">
+                <th>IdDisciplina</th>
+                <th>nome</th>
+                <th>Professor_registro</th>
+                <th>Professor_nome</th>
+                <th>Turma_idTurma</th>
+                <th>abrevicao</th>
+                <th>Excluir</th>
+            </table>
+        </div>
+    </section>
 </body>
+<script src="professor/View/JS/Disciplinas.js"></script>
 </html>

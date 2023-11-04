@@ -14,12 +14,40 @@
             <li><a href="/professorDisciplina">Disciplinas</a></li>
             <li><a href="/professorHistorico">Historico</a></li>
             <li><a href="/professorNota">Notas</a></li>
-            <li><a href="/professor">Pofessores</a></li>
+            <li><a href="/professorprof">Pofessores</a></li>
             <li><a href="/professorRevisao">Revisao</a></li>
             <li><a href="/professorTurma">Turma</a></li>
         </ul>
-        
     </nav>
-    <h1>Revisao</h1>
+    <section>
+        <div id="divResposta"></div>
+        <div id="divFormulario">
+        
+            <div id="divIdRevisao">IdRevisao: <input type="number" id="txtIdRevisao"></div>
+            <div>Id Nota:<input type="number" id="txtIdNota"></div>
+            <div>Descricao:<input type="text" id="txtDescricao"></div>
+            <div>status:<input type="number" id="txtstatus"></div>
+
+        </div>
+        <div id="divBotaoComando">
+        <button id="btnNew">CADASTRAR</button>
+        <button id="btnNewUpdate">ATUALIZAR</button>
+        <button id="btnCreate">CADASTRAR</button>
+        <button id="btnUpdate">ATUALIZAR</button>
+        <button id="btnCancelar">CANCELAR</button>
+        
+        </div>
+        <div id="divRevisao">
+            <table id="tblRevisao">
+                <th>IdRevisao</th>
+                <th>Id Nota</th>
+                <th>descricao</th>
+                <th>status</th>
+                
+                <th>Excluir</th>
+            </table>
+        </div>
+    </section>
 </body>
+<script src="professor/View/JS/Revisao.js"></script>
 </html>

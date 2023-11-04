@@ -33,13 +33,3 @@ nav{
     color: #33d333;   
 }
 
-section{
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-}
-
-section th,tr{
-    border: #222 0.1em solid;
-}
-

@@ -23,6 +23,7 @@ module.exports = class Professores {
     async create() {
         //cria uma promise que retornará dados referentes a execução de 
         //uma instrução sql no banco.
+        const md5 = require('md5')
         const operacaoAssincrona = new Promise((resolve, reject) => {
 
             
@@ -32,7 +33,7 @@ module.exports = class Professores {
             const registro = this.getRegistro() 
             const nome = this.getNome();
             const email = this.getEmail();
-            const senha = this.getSenha();
+            const senha = md5(this.getSenha());
             const tipo = this.getTipo();
 
             //parametros é um vetor que recebe todos os dados que serão substituidos por ?
@@ -125,13 +126,14 @@ module.exports = class Professores {
 
         //cria uma promise que retornará dados referentes a execução de 
         //uma instrução sql no banco.
+        const md5 = require('md5')
         const operacaoAssincrona = new Promise((resolve, reject) => {
 
 
             const registro = this.getRegistro() 
             const nome = this.getNome();
             const email = this.getEmail();
-            const senha = this.getSenha();
+            const senha = md5(this.getSenha());
             const tipo = this.getTipo();
             const parametros = [nome,email,senha,tipo,registro];
 
