@@ -10,48 +10,13 @@
 <body>
     <nav>
         <ul class="menu">
-            <li><a href="/professorAluno">Aluno</a></li>
-            <li><a href="/professorDisciplina">Disciplinas</a></li>
-            <li><a href="/professorHistorico">Historico</a></li>
-            <li><a href="/professorNota">Notas</a></li>
-            <li><a href="/professorprof">Pofessores</a></li>
-            <li><a href="/professorRevisao">Revisao</a></li>
-            <li><a href="/professorTurma">Turma</a></li>
+            <li><a href="/alunosHistorico">Historico</a></li>
+            <li><a href="/alunosnota">Notas</a></li>
+            <li><a href="/alunosRevisao">Revisao</a></li>
         </ul>
         
     </nav>
     <section>
-        <div id="divResposta"></div>
-        <div id="divFormulario">
-
-            <div id="divIdNota">idNota: <input type="number" id="txtIdNota"></div>
-            <div>IdDisciplina: <input type="number" id="txtIdDisciplina"></div>
-            <div>matricula: <input type="number" id="txtMatricula"></div>
-            <div>bimestre:<input type="number" id="txtBimestre"></div>
-            <div>Nota:<input type="number" id="txtNota"></div>
-            <div>ultima alteração:<input type="datetime-local" id="txtUltimaAlteracao"></div>
-            <div>tipo de Nota:
-            <select id="txtTipoNota">
-                <option value="1">projeto</option>
-                <option value="2">prova</option>
-            </select>
-            </div>
-            <div>Fez Lista:
-                <select id="txtFezLista">
-                    <option value="1">fez</option>
-                    <option value="2">não fez</option>
-                </select>
-            </div>
-
-        </div>
-        <div id="divBotaoComando">
-        <button id="btnNew">CADASTRAR</button>
-        <button id="btnNewUpdate">ATUALIZAR</button>
-        <button id="btnCreate">CADASTRAR</button>
-        <button id="btnUpdate">ATUALIZAR</button>
-        <button id="btnCancelar">CANCELAR</button>
-        
-        </div>
         <div id="divNotas">
             <table id="tblNotas">
                 <th>IdNota</th>
@@ -62,7 +27,16 @@
                 <th>txtUltimaAlteracao</th>
                 <th>tipoNota</th>
                 <th>FezLista</th>
-                <th>Excluir</th>
+            </table>
+            <br>
+            <table id="tblDisciplinas">
+                <th>IdDisciplina</th>
+                <th>nome</th>
+                <th>Professor_registro</th>
+                <th>Professor_nome</th>
+                <th>Turma_idTurma</th>
+                <th>abrevicao</th>
+                <th>FezLista</th>
             </table>
         </div>
     </section>

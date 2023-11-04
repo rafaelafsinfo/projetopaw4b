@@ -13,7 +13,7 @@ export default
   public getRotasNotas(): Router {
     
     this._roteador.get("/notas/:id", controle_read);
-    this._roteador.get("/alunosnotas/:token/:matricula",function(request,response){
+    this._roteador.get("/alunosnotas/",function(request,response){
       response.sendFile(path.join(__dirname,'..','Public', 'Notas.html'))
     })
 

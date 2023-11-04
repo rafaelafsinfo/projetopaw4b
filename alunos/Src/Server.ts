@@ -1,6 +1,7 @@
 import Express, { Application } from "express";
 import HistoricoRoteador from "./Router/Route_Historico";
 import NotasRoteador from "./Router/Route_Notas";
+import DisciplinaRoteador from "./Router/Route_Disciplinas";
 import RevisaoRoteador from "./Router/Route_Revisao";
 
 export default class Servidor  {
@@ -32,11 +33,12 @@ export default class Servidor  {
 
     let roteadorHistorico = new HistoricoRoteador();
     let roteadorNotas = new NotasRoteador();
+    let roteadorDisciplinas = new DisciplinaRoteador();
     let roteadorRevisao = new RevisaoRoteador();
    
     this._app.use("/", roteadorHistorico.getRotasHistorico());
     this._app.use("/",roteadorNotas.getRotasNotas());
-    this._app.use("/",roteadorNotas.getRotasNotas());
+    this._app.use("/",roteadorDisciplinas.getRotasDisciplinas());
     this._app.use("/",roteadorRevisao.getRotaRevisao())
     
   }

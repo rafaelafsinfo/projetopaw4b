@@ -16,7 +16,7 @@ export default
     
       this._roteador.post("/revisao", controle_create);
       this._roteador.get("/revisao/:id", controle_read);
-      this._roteador.delete("/revisao/:id", controle_delete);
+      this._roteador.delete("/revisao/", controle_delete);
       this._roteador.get("/alunosrevisao",function(request,response){
         response.sendFile(path.join(__dirname,'..','Public', 'Revisao.html'))
       })

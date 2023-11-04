@@ -12,8 +12,8 @@ export default
 
   public getRotasHistorico(): Router {
     
-    this._roteador.get("/historico", controle_read);
-    this._roteador.get("/alunoshistorico",function(request,response){
+    this._roteador.get("/historico/:id", controle_read);
+    this._roteador.get("/alunoshistorico/",function(request,response){
       response.sendFile(path.join(__dirname,'..','Public', 'Historico.html'))
     })
 

@@ -1,18 +1,24 @@
-const uri = window.location.href 
-const params = new URLSearchParams(uri)
+const params = new URLSearchParams(window.location.search)
 
 const TOKEN = params.get('token');
 console.log( 'Bearer <' + TOKEN + '>')
 
-let ALUNOS_JSON = {};
+const matricula = params.get("matricula");
+
+window.localStorage.setItem("matricula",matricula)
+window.localStorage.setItem("token",TOKEN)
 
 const divFormulario = document.getElementById("divFormulario");
 const tblNotas = document.getElementById("tblNotas");
+const tblDisciplinas = document.getElementById("tblDisciplinas");
 
 /*--------------------------------------------------------------------------------------------------------------------*/
   
+
 window.onload = function () {
-    fetch_notas_get(params.get('matricula'));
+    fetch_notas_get(matricula);
+    fetch_disciplinas_get();
+    
 }
 
 
@@ -31,7 +37,6 @@ function limparTabela() {
 
 function construirTabela(filtro) {
     limparTabela();
-    console.log("filtro -> "+filtro);
     const Notas = filtro;
     for (let notas of Notas) {
 
@@ -46,17 +51,6 @@ function construirTabela(filtro) {
         const colunaTipoNota = document.createElement("td");
         const colunaFezLista = document.createElement("td");
         
-        const colunaExcluir = document.createElement("td");
-
-        const btnExcluir = document.createElement("button");
-        btnExcluir.innerText = "excluir";
-        btnExcluir.onclick = function () {
-            const msg = "Deseja excluir: [ " + notas.idNota + " ] ?";
-            const resposta = confirm(msg);
-            if (resposta) {
-                fetch_notas_delete(notas.idNota);
-            }
-        }
 
         var tiponota = ""
         if(notas.tipoNota == '1'){
@@ -84,9 +78,7 @@ function construirTabela(filtro) {
         colunaUltimaAlteracao.appendChild(document.createTextNode(notas.ultimaAlteracao));
         colunaTipoNota.appendChild(document.createTextNode(tiponota));
         colunaFezLista.appendChild(document.createTextNode(fezLista));
-        
-        colunaExcluir.append(btnExcluir);
-        
+                
 
 
         linha.appendChild(colunaIdNota);
@@ -97,7 +89,6 @@ function construirTabela(filtro) {
         linha.appendChild(colunaUltimaAlteracao);
         linha.appendChild(colunaTipoNota);
         linha.appendChild(colunaFezLista);
-        linha.appendChild(colunaExcluir);
 
         tblNotas.appendChild(linha);
 
@@ -135,101 +126,33 @@ function fetch_notas_get(matricula) {
         console.error("Error:", error);
     });
 }
-
-/*------------------------------------------------------------------------------------------------------------------------*/
-
-function fetch_notas_put(idaluno) {
-    if (txtIdNota.value == "") {
-        alert("nome não pode ser vazio");
-    } else if (txtIdDisciplina.value == "") {
-        alert("senha não pode ser vazia");
-    } else if (txtMatricula.value == "") {
-        alert("senha não pode ser vazia");
-    } else if (txtBimestre.value == "") {
-        alert("senha não pode ser vazia");
-    } else if (txtNota.value == "") {
-        alert("senha não pode ser vazia");
-    } else if (txtUltimaAlteracao.value == "") {
-        alert("senha não pode ser vazia");
-    } else if (txtTipoNota.value == "") {
-        alert("senha não pode ser vazia");
-    } else if (txtFezLista.value == "") {
-        alert("senha não pode ser vazia");
-    } else {
-        const jsonEnvio = {
-            idNota:txtIdNota.value,
-            Disciplina_idDisciplina:{
-                idDisciplina:txtIdDisciplina.value
-            },
-            Aluno_matricula:{
-                matricula:txtMatricula.value
-            },
-            bimestre:txtBimestre.value,
-            nota:txtNota.value,
-            ultimaAlteracao: txtUltimaAlteracao.value,
-            tipoNota:txtTipoNota.value,
-            fezLista:txtFezLista.value
-        }
-        const string_jsonEnvio = JSON.stringify(jsonEnvio);
-        let uri = "/notas/" + idaluno;
-        fetch(uri, {
-            method: "PUT",
-            body: string_jsonEnvio,
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                "Authorization": 'Bearer <' + TOKEN + '>',
-            }
-        }).then((response) => {
-            return response.text();
-        }).then((alunoJson) => {
-            console.log("RECEBIDO:", alunoJson);
-            const objetoJson = JSON.parse(alunoJson);
-            if (objetoJson.status == true) {
-                fetch_notas_get();
-                alert("Atualizado com sucesso");
-                limparFormulario();
-                esconderFormulario();
-            } else {
-                let codigo = objetoJson.codigo;
-                if (codigo == 401) {
-                    divResposta.append(document.createTextNode("erro ao atualizar"));
-                }
-            }
-        }).catch((error) => {
-            console.error("Error:", error);
-        });
-    }
-}
-
-/*--------------------------------------------------------------------------------------------------------------------*/
-
-function fetch_notas_delete(idaluno) {
-    let uri = "/notas/" + idaluno;
+function fetch_disciplinas_get() {
+    let uri = "/professores/disciplina/";
     fetch(uri, {
-        method: "DELETE",
+        method: "GET",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             "Authorization": 'Bearer <' + TOKEN + '>',
-        }
+        },
     }).then((response) => {
         return response.text();
-    }).then((textoJsonCargos) => {
-        console.log("RECEBIDO:", textoJsonCargos)
-        let objetoJson = JSON.parse(textoJsonCargos);
-
+    }).then((disciplinasJson) => {
+        console.log("RECEBIDO:", disciplinasJson);
+        const objetoJson = JSON.parse(disciplinasJson);
         if (objetoJson.status == true) {
-            fetch_notas_get();
-            limparFormulario();
-            esconderFormulario();
+            DISCIPLINAS_JSON = objetoJson.dados;
+            construirTabela(DISCIPLINAS_JSON);
         } else {
             let codigo = objetoJson.codigo;
             if (codigo == 401) {
-                divResposta.append(document.createTextNode("erro ao deletar"));
+                divResposta.append(document.createTextNode("erro ao buscar"));
             }
         }
+
+
     }).catch((error) => {
         console.error("Error:", error);
     });
 }
+
