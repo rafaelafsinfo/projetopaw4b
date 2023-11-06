@@ -4,6 +4,7 @@
             outline: none;
             box-sizing: border-box;
             font-family: 'Noto Sans',sans-serif;
+            background-color: #262429;
         }
         body *{
             box-sizing: border-box;
@@ -12,7 +13,7 @@
             gap: 0.5em;
             width: 100vw;
             height: 100vh;
-            background-color: #201b2c;
+            background-color: #000000;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,7 +29,7 @@
         }
         .left-login >h1{
             font-size: 3vw;
-            color: #77ffc0;
+            color: #d277ff;
         }
         .image-login{
             width: 35vw;
@@ -48,12 +49,12 @@
             align-items: center;
             flex-direction: column;
             padding: 30px  35px ;
-            background: #2f2841;
+            background: #524379;
             border-radius: 20px;
             box-shadow: 0px 10px 40px #00000056;
         }
         .card-login >h1{
-            color: #00ff88;
+            color: #d277ff;
             font-weight: 800;
             margin: 0;
         }
@@ -72,7 +73,7 @@
             border: none;
             border-radius: 10px;
             padding: 15px;
-            background: #514869;
+            background: #d277ff;
             color: #f0ffffde;
             font-size: 12pt;
             box-shadow: 0px 10px 40px #00000056;
@@ -97,9 +98,9 @@
             text-transform: uppercase;
             font-weight: 800;
             letter-spacing: 3px;
-            background: #00ff88;
+            background: #d277ff;
             cursor: pointer;
-            box-shadow: 0px 10px 40px -12px #00ff8052;
+            box-shadow: 0px 10px 40px -12px #dc97ff;
         }
 
         .btn-login a{
