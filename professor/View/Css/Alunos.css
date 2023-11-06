@@ -39,7 +39,23 @@ section{
     gap: 0.5em;
 }
 
-section th,tr{
-    border: #222 0.1em solid;
+section table{
+    width: 80%;
+    margin-top: 20px;
+    border-collapse: collapse;
 }
 
+section th,td{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+section table button{
+    width: 100%;
+    background-color: #f33;
+    color: aliceblue;
+}
+section button{
+    background-color: #00ff00;
+}

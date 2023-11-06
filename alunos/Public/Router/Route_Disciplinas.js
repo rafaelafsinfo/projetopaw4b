@@ -7,7 +7,7 @@ class DisciplinasRoteador {
         this._roteador = (0, express_1.Router)();
     }
     getRotasDisciplinas() {
-        this._roteador.get("/disciplinas", Control_read_1.controle_read);
+        this._roteador.get("/disciplinas/", Control_read_1.controle_read);
         return this._roteador;
     }
 }

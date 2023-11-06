@@ -34,17 +34,19 @@ nav{
 }
 
 section table{
-    font-size: 1.5em;
-    display: grid,flex;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    justify-content:space-between;
-    flex-direction: column;
-    align-items: center;
+    width: 80%;
+    margin-top: 20px;
+    border-collapse: collapse;
 }
 
-section th{
-    gap: 0.5em;
+section th,td{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
 }
-section td{
-    text-align: center;
+
+section table button{
+    width: 100%;
+    background-color: #f33;
+    color: aliceblue;
 }

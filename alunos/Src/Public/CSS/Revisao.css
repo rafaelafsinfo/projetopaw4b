@@ -34,23 +34,20 @@ nav{
 }
 
 section table{
-    font-size: 1.5em;
-    display: grid,flex;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    justify-content:space-between;
-    flex-direction: column;
-    align-items: center;
+    width: 80%;
+    margin-top: 20px;
+    border-collapse: collapse;
 }
 
-section th{
-    gap: 0.5em;
-}
-section td{
-    text-align: center;
+section th,td{
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
 }
 
 section table button{
-    background-color: #3f2222;
+    width: 100%;
+    background-color: #f33;
     color: aliceblue;
 }
 section button{

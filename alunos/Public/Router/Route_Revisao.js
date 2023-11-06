@@ -13,9 +13,9 @@ class RevisaoRoteador {
         this._roteador = (0, express_1.Router)();
     }
     getRotaRevisao() {
-        this._roteador.post("/revisao", Control_create_1.controle_create);
-        this._roteador.get("/revisao/:id", Control_read_1.controle_read);
-        this._roteador.delete("/revisao/", Control_delete_1.controle_delete);
+        this._roteador.post("/revisao/", Control_create_1.controle_create);
+        this._roteador.get("/revisao/", Control_read_1.controle_read);
+        this._roteador.delete("/revisao/:id", Control_delete_1.controle_delete);
         this._roteador.get("/alunosrevisao", function (request, response) {
             response.sendFile(path_1.default.join(__dirname, '..', 'Public', 'Revisao.html'));
         });

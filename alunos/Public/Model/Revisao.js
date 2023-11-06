@@ -40,7 +40,7 @@ class Revisao {
             return new Promise((resolve, reject) => {
                 const id = this.idPedidoRevisao;
                 const PARAMETROS = [id];
-                const SQL = "SELECT * FROM pedidorevisao where idPedidoRevisao = ?";
+                const SQL = "SELECT * FROM pedidorevisao";
                 Banco_1.default.getConexao().query(SQL, PARAMETROS).then(([linhasBanco, fields]) => {
                     // console.log(rows);
                     resolve(linhasBanco);
