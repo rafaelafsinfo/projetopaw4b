@@ -13,6 +13,7 @@ const txtNome = document.getElementById("txtNome");
 const txtEmail = document.getElementById("txtEmail");
 const txtWpp = document.getElementById("txtWpp");
 const txtSenha = document.getElementById("txtSenha");
+const txtFiltro = document.getElementById("txtFiltro");
 
 
 const btnNovo = document.getElementById("btnNew");
@@ -24,6 +25,7 @@ btnCadastrar.onclick = btnCreate_onclick;
 btnNovo.onclick = btnNovo_onclick;
 btnCancelar.onclick = btnCancelar_onclick;
 btnUpdate.onclick = btnUpdate_onclick;
+txtFiltro.onkeyup = txtFiltro_onkeyup;
 
 /*--------------------------------------------------------------------------------------------------------------------*/
   
@@ -38,6 +40,11 @@ function btnNovo_onclick() {
     limparFormulario();
 }
 
+/*--------------------------------------------------------------------------------------------------------------------*/
+function txtFiltro_onkeyup() {
+    let filtro = txtFiltro.value;
+    fetch_alunos_get(filtro);
+}
 /*--------------------------------------------------------------------------------------------------------------------*/
 
 function btnCancelar_onclick() {
@@ -113,7 +120,6 @@ function construirTabela(filtro) {
         const colunaNome = document.createElement("td");
         const colunaEmail = document.createElement("td");
         const colunaWpp = document.createElement("td");
-        const colunaAtualizar = document.createElement("td");
         const colunaExcluir = document.createElement("td");
 
         const btnSelecionar = document.createElement("button");
@@ -226,8 +232,8 @@ function fetch_alunos_post() {
 
 /*-----------------------------------------------------------------------------------------------------------------------*/
 
-function fetch_alunos_get() {
-    let uri = "/professores/aluno/";
+function fetch_alunos_get(filtro) {
+    let uri = "/professores/aluno/"+filtro;
     fetch(uri, {
         method: "GET",
         headers: {

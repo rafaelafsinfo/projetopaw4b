@@ -11,7 +11,7 @@ export default
 
   public getRotasDisciplinas(): Router {
     
-    this._roteador.get("/disciplinas", controle_read);
+    this._roteador.get("/disciplinas/", controle_read);
 
     return this._roteador;
   }

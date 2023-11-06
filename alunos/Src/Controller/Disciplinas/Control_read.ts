@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Notas from "../../Model/Notas";
+import Disciplinas from "../../Model/Disciplinas";
 import JwtToken from "../../Model/JwtToken";
 
 export function controle_read(request: Request, response: Response) {
@@ -11,11 +11,8 @@ export function controle_read(request: Request, response: Response) {
 
     if (validacao.status == true) {
 
-        let id: number = parseInt(request.params.id);
-
-        const notas = new Notas();
-        notas.Aluno_matricula = id
-        notas.read().then(value => {
+        const disciplina = new Disciplinas();
+        disciplina.read().then(value => {
             const resposta = {
                 status: true,
                 msg: 'executado com sucesso',

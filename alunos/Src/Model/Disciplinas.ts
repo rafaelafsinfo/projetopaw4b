@@ -1,7 +1,7 @@
 import Banco from "../Model/Banco";
 import * as Mysql from 'mysql2/promise';
 
-export default class Notas {
+export default class Disciplinas {
 
     
     private _Aluno_matricula:number;

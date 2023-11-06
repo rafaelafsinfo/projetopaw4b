@@ -3,21 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="login/View/Css/Login.css">
+    <link rel="stylesheet" type="text/css" href="./View/Css/Login.css">
     <title>Document</title>
 </head>
 <body>
-    <section class="main-login">
-        <div class="btn_select">
-            <a href="/loginaluno" target="blank">
-                <h3>Alunos</h3>
-            </a>
-        </div>
-        <div class="btn_select">
-            <a>
-                <h1>Professor</h1>
-            </a>
-        </div>
+    <section class="main-login" style="display: flex; flex-direction: column;">
+            <div class="card-login">
+                <div class="btn-login">
+                    <a href="/loginaluno" target="blank">
+                        <label style="margin-left: 15px;">
+                            Alunos
+                        </label>
+                    </a>
+                </div>
+            </div>
+            <div class="card-login">
+                <div class="btn-login">
+                    <a href="/loginprofessor" target="blank">
+                        <label style="margin-left: 15px;">
+                            professsor
+                        </label>
+                    </a>
+                </div>
+            </div>
+    
     </section>
 </body>
 </html>

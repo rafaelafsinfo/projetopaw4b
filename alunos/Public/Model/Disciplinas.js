@@ -13,15 +13,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Banco_1 = __importDefault(require("../Model/Banco"));
-class Historico {
+class Disciplinas {
     constructor() {
-        this._Nota_idNota = -1;
+        this._Aluno_matricula = -1;
     }
     read() {
         return __awaiter(this, void 0, void 0, function* () {
             return new Promise((resolve, reject) => {
-                const PARAMETROS = [''];
-                const SQL = "SELECT historicoalteracoes.*  FROM historicoalteracoes INNER JOIN nota ON historicoalteracoes.Nota_idNota = nota.Aluno_matricula INNER JOIN aluno ON nota.Aluno_matricula = aluno.matricula where aluno.matricula = 1";
+                const matricula = this._Aluno_matricula;
+                const PARAMETROS = [matricula];
+                const SQL = "SELECT d.idDisciplina,d.nome AS disciplina_nome,p.registro AS prof_registro, p.nome AS prof_nome,t.idTurma AS turma_id, t.abreviacao AS turma_abreviacao, t.ano AS turma_ano FROM disciplina AS d JOIN professor AS p ON d.Professor_registro = p.registro JOIN turma AS t ON d.Turma_idTurma = t.idTurma ORDER BY disciplina_nome, prof_nome;";
                 Banco_1.default.getConexao().query(SQL, PARAMETROS).then(([linhasBanco, fields]) => {
                     resolve(linhasBanco);
                 }).catch((erro) => {
@@ -30,11 +31,11 @@ class Historico {
             });
         });
     }
-    get Nota() {
-        return this._Nota_idNota;
+    get Aluno_matricula() {
+        return this._Aluno_matricula;
     }
-    set Nota(id) {
-        this._Nota_idNota = id;
+    set Aluno_matricula(id) {
+        this._Aluno_matricula = id;
     }
 }
-exports.default = Historico;
+exports.default = Disciplinas;

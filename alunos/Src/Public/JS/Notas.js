@@ -1,12 +1,14 @@
-const params = new URLSearchParams(window.location.search)
+if (window.location.search != ""){
+    const params = new URLSearchParams(window.location.search)
+    
+    
+    window.localStorage.setItem("matricula",params.get("matricula"))
+    window.localStorage.setItem("token",params.get('token'))
+}
 
-const TOKEN = params.get('token');
+const TOKEN = localStorage.getItem('token')
 console.log( 'Bearer <' + TOKEN + '>')
-
-const matricula = params.get("matricula");
-
-window.localStorage.setItem("matricula",matricula)
-window.localStorage.setItem("token",TOKEN)
+const matricula = localStorage.getItem('matricula')
 
 const divFormulario = document.getElementById("divFormulario");
 const tblNotas = document.getElementById("tblNotas");
@@ -17,7 +19,7 @@ const tblDisciplinas = document.getElementById("tblDisciplinas");
 
 window.onload = function () {
     fetch_notas_get(matricula);
-    fetch_disciplinas_get();
+
     
 }
 
@@ -114,35 +116,6 @@ function fetch_notas_get(matricula) {
         if (objetoJson.status == true) {
             NOTAS_JSON = objetoJson.dados;
             construirTabela(NOTAS_JSON);
-        } else {
-            let codigo = objetoJson.codigo;
-            if (codigo == 401) {
-                divResposta.append(document.createTextNode("erro ao buscar"));
-            }
-        }
-
-
-    }).catch((error) => {
-        console.error("Error:", error);
-    });
-}
-function fetch_disciplinas_get() {
-    let uri = "/professores/disciplina/";
-    fetch(uri, {
-        method: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            "Authorization": 'Bearer <' + TOKEN + '>',
-        },
-    }).then((response) => {
-        return response.text();
-    }).then((disciplinasJson) => {
-        console.log("RECEBIDO:", disciplinasJson);
-        const objetoJson = JSON.parse(disciplinasJson);
-        if (objetoJson.status == true) {
-            DISCIPLINAS_JSON = objetoJson.dados;
-            construirTabela(DISCIPLINAS_JSON);
         } else {
             let codigo = objetoJson.codigo;
             if (codigo == 401) {

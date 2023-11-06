@@ -5,16 +5,12 @@ console.log( 'Bearer <' + TOKEN + '>')
 
 let PEDIDOS_JSON = {};
 
-const divResposta = document.getElementById("divResposta");
 const divFormulario = document.getElementById("divFormulario");
-const divIdRevisao = document.getElementById("divIdRevisao");
 const tblRevisao = document.getElementById("tblRevisao");
 
 
-const txtIdPedidoRevisao = document.getElementById("txtIdPedidoRevisao");
 const txtNota_idNota = document.getElementById("txtNota_idNota");
 const txtDescricao = document.getElementById("txtDescricao");
-const txtstatus = document.getElementById("txtstatus");
 
 
 const btnNovo = document.getElementById("btnNew");
@@ -67,14 +63,11 @@ function esconderFormulario() {
 
 function limparFormulario() {
     divFormulario.hidden = false;
-    divIdRevisao.hidden = true;
     btnNovo.hidden = true;
     btnCadastrar.hidden = false;
     btnCancelar.hidden = false;
-    txtNota_idNota.value = "";
+    txtNota_idNota.value = null;
     txtDescricao.value = "";
-    txtstatus.value = "";
-
 }
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -142,9 +135,6 @@ function validarFormulario_post() {
     }else if (txtDescricao.value == "") {
         alert("a descricao do professor não pode ser vazia");;
         return false;
-    }else if (txtstatus.value == "") {
-        alert("O status não pode ser vazio");;
-        return false;
     }
     return true;
 }
@@ -153,11 +143,8 @@ function validarFormulario_post() {
 
 function fetch_revisao_post() {
     const jsonEnvio = {
-        Nota_idNota: {
-            idNota:txtNota_idNota.value
-        },
-        descricao: txtDescricao.value,
-        status: txtstatus.value
+        Nota_idNota:txtNota_idNota.value,
+	    descricao: txtDescricao.value
     }
     const string_jsonEnvio = JSON.stringify(jsonEnvio);
     let uri = "/revisao/";

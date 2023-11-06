@@ -39,7 +39,7 @@ export default class Revisao {
         return new Promise<Mysql.RowDataPacket[]>((resolve, reject) => {
             const id = this.idPedidoRevisao;
             const PARAMETROS = [id];
-            const SQL = "SELECT * FROM pedidorevisao where idPedidoRevisao = ?";
+            const SQL = "SELECT * FROM pedidorevisao";
             
             Banco.getConexao().query<Mysql.RowDataPacket[]>(SQL, PARAMETROS).then(([linhasBanco, fields]) => {
                 // console.log(rows);
