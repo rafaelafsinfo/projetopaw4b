@@ -45,7 +45,7 @@ const divResposta = document.getElementById("divResposta");
             }
             
         }).catch((error) => {
-            alert(error)
+            //alert(error)
             console.error("Error:", error);
         });      
     }
